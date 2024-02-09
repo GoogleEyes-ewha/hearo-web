@@ -6,7 +6,6 @@ import { colorBlindModeState } from "../../recoil/recoil";
 getColors라는 함수로 type1에 설정해놓은 색상 값들을 가져온다.
 */
 
-
 export default function Login() {
     const colorBlindMode = useRecoilValue(colorBlindModeState);
     const colors = getColors(colorBlindMode);
