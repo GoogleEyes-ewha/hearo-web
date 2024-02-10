@@ -1,6 +1,7 @@
 import axios from 'axios';
 import { useRecoilState } from 'recoil';
-import { authAtom, UserState } from '../recoil/atoms/AuthAtom';
+import { UserState } from '../types';
+import { authAtom } from '../recoil/atoms/AuthAtom';
 import { getUserInfo } from '../services/AuthServices';
 
 
