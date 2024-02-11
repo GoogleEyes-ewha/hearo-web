@@ -23,7 +23,6 @@ export const colorBlindModeState = atom<string>({
   default: 'type1', 
 });
 
-
 // 관심 상품 상태
 export const favoriteState = atom<Product[]>({
   key: 'favoriteState',
