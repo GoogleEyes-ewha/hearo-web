@@ -1,7 +1,7 @@
 import React from 'react';
 import Navbar from '../../components/Navbar';
 import CategoryButtons from '../../components/CategoryBar';
-import VoiceSearchButton from '../../elements/Search/VoiceSearchButton';
+import VoiceSearchButton from '../../components/elements/Search/VoiceSearchButton';
 import { useRecoilState } from 'recoil';
 import { SearchState } from '../../recoil/atoms/SearchAtom';
 import SearchBar from '../../components/SearchBar';

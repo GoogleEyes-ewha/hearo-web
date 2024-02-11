@@ -1,10 +1,10 @@
 import React, { useState } from 'react';
 import { useRecoilValue } from 'recoil';
 import { productListState, userPreferenceState } from '../../recoil/atoms/ProductAtom';
-import ProductItem from '../../elements/Product/ProductCard';
+import ProductItem from '../../components/elements/Product/ProductCard';
 import Navbar from '../../components/Navbar';
 import SearchBar from '../../components/SearchBar';
-import VoiceSearchButton from '../../elements/Search/VoiceSearchButton';
+import VoiceSearchButton from '../../components/elements/Search/VoiceSearchButton';
 
 const SearchList: React.FC = () => {
     const userPreference = useRecoilValue(userPreferenceState);
