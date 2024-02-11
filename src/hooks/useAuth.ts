@@ -1,24 +1,27 @@
 import axios from 'axios';
 import { useRecoilState } from 'recoil';
-import { UserState } from '../types';
+import { UserState, Product } from '../types';
 import { authAtom } from '../recoil/atoms/AuthAtom';
 import { getUserInfo } from '../services/AuthServices';
+import { favoriteState } from '../recoil/atoms/UserAtom';
 
 
 export function useAuth() {
     const [authState, setAuthState] = useRecoilState<UserState>(authAtom);
+    const [, setFavorites] = useRecoilState<Product[]>(favoriteState);
 
     // 로그인 
     const login = async (loginId: string, password: string) => {
 
         try {
             // 로그인 API 호출, 응답에서 토큰 받아오기
-            const response = await axios.post('/user/login',{ loginId, password });
+            const response = await axios.post('/user/login', { loginId, password });
             const { accessToken, refreshToken } = response.data.result;
 
             // 로그인 성공 후, 사용자 정보 가져오기 
-            const userInfo = await getUserInfo(accessToken);
+            const { userInfo, wishList } = await getUserInfo(accessToken);
             
+            // 사용자 상태 업데이트 
             const newState: UserState = {
                 isAuthenticated: true,
                 accessToken,
@@ -26,8 +29,9 @@ export function useAuth() {
                 userInfo,
             };
 
-            // Recoil 상태 업데이트
             setAuthState(newState);
+            setFavorites(wishList);
+
         }
         catch (error) {
             console.error('Login failed', error);
@@ -45,8 +49,9 @@ export function useAuth() {
             userInfo: undefined,
         };
 
-        // Recoil 상태 초기화
+        // 사용자 상태 초기화
         setAuthState(initialState);
+        setFavorites([]);
         
         // 로그아웃 처리 로직, 예) 쿠키, 로컬 스토리지에서 토큰 제거 
     };

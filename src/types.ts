@@ -9,7 +9,6 @@ export interface Product {
 };
 
 /* Search 관련 */
-
 export interface SearchResult {
     keyword: string;
     itemCount: number;
@@ -22,12 +21,12 @@ export interface SearchState {
     searchHistory: string[]; // 검색기록 
 }
 
+
 /* Auth 관련 */
 export interface UserInfo {
     id: string;
     name: string;
 };
-
 
 export interface UserState {
     isAuthenticated: boolean;
