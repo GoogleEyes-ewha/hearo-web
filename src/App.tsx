@@ -1,8 +1,8 @@
 import styled from 'styled-components';
 import Login from './pages/Auth/Login'; //만들어놓은 Login 페이지 가져오기
 import UserSettings from './pages/Settings/UserSettings';
-import SearchMain from './pages/Search/SearchMain';
-import SearchList from './pages/Search/SearchItem';
+//import SearchMain from './pages/Search/SearchMain';
+//import SearchList from './pages/Search/SearchItem';
 import { Route, Routes } from 'react-router-dom';
 
 
@@ -13,8 +13,8 @@ function App() {
       <Routes>
         <Route path="/login" element={<Login />} />
         <Route path="/settings" element={<UserSettings />} />
-        <Route path="/main" element={<SearchMain />} />
-        <Route path="/item" element={<SearchList />} />
+        {/*<Route path="/main" element={<SearchMain />} />
+        <Route path="/item" element={<SearchList />} />*/}
       </Routes>
     </Container>
   );
