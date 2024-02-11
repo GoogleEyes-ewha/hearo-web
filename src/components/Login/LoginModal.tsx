@@ -1,13 +1,13 @@
 import React, { useState } from 'react';
 import { useRecoilState } from 'recoil';
-import { isModalOpen } from '../../recoil/recoil';
+import { isModalOpen, isLogin } from '../../recoil/recoil';
 import styled from 'styled-components';
 import LoginForm from './LoginForm';
 import SignupForm from './SignupForm';
 
 export default function LoginModal() {
   const [isOpen, setIsOpen] = useRecoilState(isModalOpen);
-  const [activeForm, setActiveForm] = useState<'login' | 'signup'>('login');
+  const [activeForm, setActiveForm] = useRecoilState(isLogin);
 
   if (!isOpen) return null;
 

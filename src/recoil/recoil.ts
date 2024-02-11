@@ -18,3 +18,8 @@ export const isModalOpen = atom({
   key: 'isModalOpen',
   default: false,
 });
+
+export const isLogin = atom<string>({
+    key: 'isLogin',
+    default: 'login'
+})

@@ -3,6 +3,9 @@ import { getColors } from "../../assets/styles/colors";
 import { colorBlindModeState } from "../../recoil/recoil";
 import styled from "styled-components";
 import GoogleLogo from "../../assets/images/googleLogo.png";
+import { useRecoilState } from 'recoil';
+import { isModalOpen } from '../../recoil/recoil';
+import LoginModal from "../../components/Login/LoginModal";
 
 /*recoilValue로 전역상태 관리 해놓은 colorBlindModeState의 값을 가져오고, ex) type1
 getColors라는 함수로 type1에 설정해놓은 색상 값들을 가져온다.
@@ -11,15 +14,17 @@ getColors라는 함수로 type1에 설정해놓은 색상 값들을 가져온다
 export default function Login() {
     const colorBlindMode = useRecoilValue(colorBlindModeState);
     const colors = getColors(colorBlindMode);
+    const [isOpen, setIsOpen] = useRecoilState(isModalOpen);
 
     return(
       <Container>
         <TitleBox>HEARO</TitleBox>
         <SubTitleBox>will be your hero</SubTitleBox>
-        <GoogleSignUpBox>
+        <GoogleSignUpBox onClick={() => setIsOpen(true)}>
           <LogoImgBox src={GoogleLogo}/>
           <SignUpText>Sign up with Google</SignUpText>
         </GoogleSignUpBox>
+        <LoginModal/>
       </Container>
     );
 }
@@ -69,6 +74,7 @@ const GoogleSignUpBox = styled.div`
   border-radius: 4.838px;
   background: #FFF;
   box-shadow: 0px 2.419px 2.419px 0px rgba(0, 0, 0, 0.17), 0px 0px 2.419px 0px rgba(0, 0, 0, 0.08);
+  cursor: pointer;
 `
 
 const LogoImgBox = styled.img`
