@@ -5,9 +5,6 @@ import SettingModal from '../../components/Settings/SettingModal';
 import { useGetUserSettings } from '../../hooks/settings';
 
 const SearchMain: React.FC = () => {
-
-    useGetUserSettings();
-
     return (
         <Container>
             <SettingModal/>

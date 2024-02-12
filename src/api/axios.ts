@@ -27,7 +27,8 @@ axiosInstance.interceptors.request.use(async (config) => {
 // 응답 인터셉터
 axiosInstance.interceptors.response.use(response => response, async (error) => {
   const originalRequest = error.config;
-  if (error.response.status === 401 && !originalRequest._retry) {
+  console.log('axios 인터셉트 중');
+  if ((error.response.status === 401) && !originalRequest._retry) {
     originalRequest._retry = true;
     const data = await reissueTokens(); // 토큰 갱신 시도
     if (data.inSuccess && data.result) {

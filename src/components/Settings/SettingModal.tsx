@@ -4,8 +4,10 @@ import { isSettingModalOpen } from '../../recoil/recoil';
 import styled from 'styled-components';
 import CancleImg from '../../assets/images/cancleX.png';
 import { useNavigate } from 'react-router-dom';
+import { useGetUserSettings } from '../../hooks/settings';
 
 export default function SettingModal() {
+  useGetUserSettings();
   const [isOpen, setIsOpen] = useRecoilState(isSettingModalOpen);
   const navigate = useNavigate();
 

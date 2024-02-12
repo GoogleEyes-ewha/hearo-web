@@ -21,7 +21,7 @@ export const isModalOpen = atom({
 
 export const isSettingModalOpen = atom({
   key: 'isSettingModalOpen',
-  default: true,
+  default: false,
 });
 
 export const isLogin = atom<string>({
@@ -37,9 +37,9 @@ export const fontSizeState = atom({
 export const userSettingsState = atom({
   key: 'userSettingsState',
   default: {
-    disabilityType: 0,
+    disabilityType: -1,
     fontSize: 16,
-    voiceType: 'MALE_VOICE',
+    voiceType: '',
   },
 });
 

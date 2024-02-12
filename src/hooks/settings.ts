@@ -10,14 +10,15 @@ interface IUserSettingType {
 }
 
 export const useGetUserSettings = () => {
-  const [, setFontSize] = useRecoilState(fontSizeState);
+  //const [, setFontSize] = useRecoilState(fontSizeState);
   const [, setIsOpen] = useRecoilState(isSettingModalOpen);
   useQuery('userSettings', getUserSettings, {
     onSuccess: (data) => {
       if (data.code === 1000 && data.inSuccess) {
         if (data.result) {
           // 사용자 설정 적용
-          setFontSize(data.result.fontSize);
+          //setFontSize(data.result.fontSize);
+          setIsOpen(false);
         } else {
           // 설정이 비어있으면 모달 열기
           setIsOpen(true);
@@ -34,8 +35,13 @@ export const useGetUserSettings = () => {
 export const usePostUserSettings = () => {
   return useMutation((settings: IUserSettingType) => postUserSettings(settings), {
     onSuccess: (data) => {
-      // Handle successful update
-      console.log('Settings updated successfully:', data);
+      // Check if the response code is 1000
+      if (data.code === 1000) {
+        // Handle successful update
+        console.log('Settings updated successfully:', data);
+      } else {
+        console.error('Error updating settings: Unexpected response code', data);
+      }
     },
     onError: (error) => {
       // Handle error condition

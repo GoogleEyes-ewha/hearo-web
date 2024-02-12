@@ -7,7 +7,6 @@ import { FontSizeStep } from '../../components/Settings/FontSizeStep';
 import { VoiceStep } from '../../components/Settings/VoiceStep';
 
 export default function UserSettings(){
-  const { mutate: postUserSettings, isLoading, isError } = usePostUserSettings();
   const [currentStep, setCurrentStep] = useRecoilState(stepState);
   const [userSettings, setUserSettings] = useRecoilState(userSettingsState);
   const userSettingsValue = useRecoilValue(userSettingsState);
