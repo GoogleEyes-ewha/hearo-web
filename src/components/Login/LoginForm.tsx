@@ -24,7 +24,7 @@ export default function LoginForm() {
       {
         onSuccess: () => {
           alert("Logged in successfully");
-          navigate("/dashboard"); // 로그인 성공 후 리디렉트
+          navigate("/main"); // 로그인 성공 후 리디렉트
         },
       }
     );
@@ -106,6 +106,7 @@ const SubmitBtn = styled.button`
   padding: 13px 0;
   font-size: 16px;
   margin-top: 50px;
+  cursor: pointer;
 `;
 
 const SubText = styled.div`

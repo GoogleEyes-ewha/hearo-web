@@ -74,6 +74,7 @@ const ToggleBtn = styled.button<{isClicked: boolean}>`
     border: none;
     background-color: #f9f9f9;
     color: #434343;
+    cursor: pointer;
 
     text-align: center;
     font-family: SUIT;

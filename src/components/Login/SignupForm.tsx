@@ -1,11 +1,20 @@
 import { useState } from "react";
 import styled from "styled-components";
+import { useSignup } from "../../hooks/auth";
+import { useNavigate } from "react-router-dom";
+import { useRecoilState } from "recoil";
+import { isLogin } from "../../recoil/recoil";
 
 export default function SignupForm(){
-    const [id, setId] = useState('');
+  const [id, setId] = useState('');
   const [nickname, setNickname] = useState('');
   const [password, setPassword] = useState('');
   const [passwordConfirm, setPasswordConfirm] = useState('');
+  const [activeForm, setActiveForm] = useRecoilState(isLogin);
+
+  const navigate = useNavigate();
+
+  const { mutate: signupMutate } = useSignup();
 
   const handleSubmit = (event: React.FormEvent) => {
     event.preventDefault();
@@ -14,7 +23,15 @@ export default function SignupForm(){
       return;
     }
     // 회원가입 처리 로직
-    alert('Your account is set up');
+    signupMutate(
+      { username: nickname, loginId: id, password },
+      {
+        onSuccess: () => {
+          alert("Your account is set up.");
+          setActiveForm("login"); 
+        },
+      }
+    );
   };
 
   return (
@@ -81,4 +98,5 @@ const SubmitBtn = styled.button`
     padding: 13px 0;
     font-size: 16px;
     margin-top: 20px;
+    cursor: pointer;
 `

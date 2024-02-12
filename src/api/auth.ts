@@ -26,3 +26,22 @@ export const reissueTokens = async () => {
   });
   return response.data;
 };
+
+
+// API 모듈에 signup 함수 추가
+export const signup = async ({
+  username,
+  loginId,
+  password,
+}: {
+  username: string;
+  loginId: string;
+  password: string;
+}) => {
+  const response = await axios.post(`${API_BASE_URL}/user/signup`, {
+    username,
+    loginId,
+    password,
+  });
+  return response.data;
+};
