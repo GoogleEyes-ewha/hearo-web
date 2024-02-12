@@ -1,7 +1,7 @@
 // 로그인, 로그아웃 버튼 
 import React from 'react';
 import { useNavigate } from 'react-router-dom';
-import { useAuth } from '../../../hooks/useAuth';
+import { useAuth } from '../../../hooks/auth';
 
 const SignUpButton: React.FC = () => {
     const navigate = useNavigate();
