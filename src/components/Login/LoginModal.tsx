@@ -9,11 +9,16 @@ export default function LoginModal() {
   const [isOpen, setIsOpen] = useRecoilState(isModalOpen);
   const [activeForm, setActiveForm] = useRecoilState(isLogin);
 
+  const closeModal = () => {
+    setIsOpen(false);
+  };
+
   if (!isOpen) return null;
 
   return (
     <Container>
         <FormBox>
+            <CloseButton onClick={closeModal}>X</CloseButton>
             <ToggleBox>
                 <ToggleTitle>
                     <ToggleBtn onClick={() => setActiveForm('login')} isClicked = {activeForm === 'login'}>
@@ -44,6 +49,7 @@ const Container = styled.div`
 
 const FormBox = styled.div`
     display: flex;
+    position: relative;
     height: 700px;
     width: 500px;
     margin: auto;
@@ -91,3 +97,14 @@ const FormContainer = styled.div`
     align-items: center;
     justify-content: center;
 `
+
+const CloseButton = styled.button`
+    position: absolute;
+    top: 20px;
+    right: 20px;
+    border: none;
+    background: none;
+    font-size: 24px;
+    cursor: pointer;
+    color: #000;
+`;
