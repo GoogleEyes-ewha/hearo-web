@@ -19,7 +19,17 @@ export const isModalOpen = atom({
   default: false,
 });
 
+export const isSettingModalOpen = atom({
+  key: 'isSettingModalOpen',
+  default: true,
+});
+
 export const isLogin = atom<string>({
     key: 'isLogin',
     default: 'login'
 })
+
+export const fontSizeState = atom({
+  key: 'fontSizeState',
+  default: 16,
+});

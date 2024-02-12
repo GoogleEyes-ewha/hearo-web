@@ -4,6 +4,7 @@ import { isModalOpen, isLogin } from '../../recoil/recoil';
 import styled from 'styled-components';
 import LoginForm from './LoginForm';
 import SignupForm from './SignupForm';
+import CancleImg from '../../assets/images/cancleX.png';
 
 export default function LoginModal() {
   const [isOpen, setIsOpen] = useRecoilState(isModalOpen);
@@ -18,7 +19,7 @@ export default function LoginModal() {
   return (
     <Container>
         <FormBox>
-            <CloseButton onClick={closeModal}>X</CloseButton>
+            <CloseButton onClick={closeModal}/>
             <ToggleBox>
                 <ToggleTitle>
                     <ToggleBtn onClick={() => setActiveForm('login')} isClicked = {activeForm === 'login'}>
@@ -100,11 +101,13 @@ const FormContainer = styled.div`
 
 const CloseButton = styled.button`
     position: absolute;
+    width: 45px;
+    height: 45px;
     top: 20px;
     right: 20px;
     border: none;
     background: none;
+    background-image: url(${CancleImg});
     font-size: 24px;
     cursor: pointer;
-    color: #000;
 `;
