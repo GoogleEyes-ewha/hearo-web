@@ -1,14 +1,18 @@
 import Cookies from 'js-cookie';
 import axiosInstance from './axios';
 
-export async function getUserSettings() {
-
-const accessToken = Cookies.get("accessToken");
-  
-    try {
-        const response = await axiosInstance.get('/user/custom');
-        return response.data;
-    } catch (error) {
-        throw error;
-    }
+interface IUserSettingType{
+    disabilityType: number;
+    fontSize: number;
+    voiceType: string;
 }
+
+export async function getUserSettings() {
+    const response = await axiosInstance.get('/user/custom');
+     return response.data;
+}
+
+export const postUserSettings = async (settings : IUserSettingType) => {
+    const response = await axiosInstance.post('/user/custom', settings);
+    return response.data;
+  };

@@ -1,9 +1,15 @@
-import { useQuery } from 'react-query';
-import { getUserSettings } from '../api/settings';
+import { useMutation, useQuery } from 'react-query';
+import { getUserSettings, postUserSettings } from '../api/settings';
 import { fontSizeState, isSettingModalOpen } from '../recoil/recoil';
 import { useRecoilState } from 'recoil';
 
-export const useUserSettings = () => {
+interface IUserSettingType {
+  disabilityType: number;
+  fontSize: number;
+  voiceType: string;
+}
+
+export const useGetUserSettings = () => {
   const [, setFontSize] = useRecoilState(fontSizeState);
   const [, setIsOpen] = useRecoilState(isSettingModalOpen);
   useQuery('userSettings', getUserSettings, {
@@ -22,5 +28,18 @@ export const useUserSettings = () => {
       console.error("Error fetching user settings:", error);
       setIsOpen(true); // 오류 발생 시 모달 열기
     }
+  });
+};
+
+export const usePostUserSettings = () => {
+  return useMutation((settings: IUserSettingType) => postUserSettings(settings), {
+    onSuccess: (data) => {
+      // Handle successful update
+      console.log('Settings updated successfully:', data);
+    },
+    onError: (error) => {
+      // Handle error condition
+      console.error('Error updating settings:', error);
+    },
   });
 };

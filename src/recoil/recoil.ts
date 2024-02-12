@@ -33,3 +33,17 @@ export const fontSizeState = atom({
   key: 'fontSizeState',
   default: 16,
 });
+
+export const userSettingsState = atom({
+  key: 'userSettingsState',
+  default: {
+    disabilityType: 0,
+    fontSize: 16,
+    voiceType: 'MALE_VOICE',
+  },
+});
+
+export const stepState = atom({
+  key: 'stepState',
+  default: 1, // 첫 번째 페이지부터 시작
+});

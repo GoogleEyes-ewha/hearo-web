@@ -2,11 +2,11 @@ import React, { useEffect } from 'react';
 import Header from '../../components/Header';
 import styled from 'styled-components';
 import SettingModal from '../../components/Settings/SettingModal';
-import { useUserSettings } from '../../hooks/settings';
+import { useGetUserSettings } from '../../hooks/settings';
 
 const SearchMain: React.FC = () => {
 
-    useUserSettings();
+    useGetUserSettings();
 
     return (
         <Container>
