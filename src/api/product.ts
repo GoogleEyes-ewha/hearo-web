@@ -5,3 +5,13 @@ export const getItem = async (itemId: string | undefined) => {
   const response = await axiosInstance.get(`/item/${itemId}`);
   return response.data;
 };
+
+export const getItemReviews = async (itemId: string | undefined) => {
+  const response = await axiosInstance.get(`/review/${itemId}`);
+  return response.data;
+}
+
+export const getItemAllReviews = async (itemId: string | undefined) => {
+  const response = await axiosInstance.get(`/review/${itemId}/list`);
+  return response.data;
+}

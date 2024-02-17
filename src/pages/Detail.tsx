@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useCallback, useEffect, useState } from 'react';
 import Header from '../components/Header';
 import styled from 'styled-components';
 import ProductDetail from '../components/ProductDetail';
@@ -6,15 +6,21 @@ import ProductDescription from '../components/ProductDescription';
 import ProductReview from '../components/ProductReview';
 import {detailState} from '../recoil/recoil';
 import { useRecoilState } from 'recoil';
+import { useGetItemReviews } from '../hooks/product';
+import { useParams } from 'react-router-dom';
 
-export default function Review(){
-
+export default function Detail(){
+    const { itemId } = useParams();
     const [detailNum, setDetailNum] = useRecoilState<number>(detailState);
-    const handleInfo = (value: number) => {
-        if(value !=detailNum){
-            setDetailNum(value);
+    const handleInfo = useCallback((value: number) => {
+        if (value !== detailNum) {
+          setDetailNum(value);
         }
-    }
+      }, [detailNum, setDetailNum]);
+    
+    const { data, isLoading, error } = useGetItemReviews(itemId);
+    console.log('itekms' + JSON.stringify(data));
+    
     return (
         <Container>
             <Header/>
@@ -24,7 +30,7 @@ export default function Review(){
                     <InfoBtn isSelected = {detailNum === 1} onClick = {() => handleInfo(1)}>Product Description</InfoBtn>
                     <InfoBtn isSelected = {detailNum === 2} onClick = {() => handleInfo(2)}>Review</InfoBtn>
                 </InfoHeader>
-                {detailNum === 1 ? <ProductDescription/> : <ProductReview/>}
+                {detailNum === 1 ? <ProductDescription/> : <ProductReview itemId={itemId}/>}
             </DetailBox>
         </Container>
     );
@@ -40,9 +46,10 @@ const Container = styled.div`
 
 const DetailBox = styled.div`
     display: flex;
+    flex-direction: column;
     margin: 0 101px 139px 101px;
     min-width: 1000px;   
-    height: 1272px;
+    height: 1500px;
     background-color: #fff;
     border-radius: 10px;
 `
@@ -52,11 +59,12 @@ const InfoHeader = styled.div`
     height: 100px;
     width: 100%;
     background-color: #d9d9d9;
+    border-radius: 10px;
 `
 const InfoBtn = styled.button<{isSelected: boolean}>`
     display: flex;
+    width: 100%;
     height: 100px;
-    width: 50%;
     cursor: pointer;
     border: none;
     border-radius: 10px 10px 0 0;
