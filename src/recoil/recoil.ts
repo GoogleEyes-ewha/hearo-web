@@ -47,3 +47,9 @@ export const stepState = atom({
   key: 'stepState',
   default: 1, // 첫 번째 페이지부터 시작
 });
+
+
+export const detailState = atom<number>({
+  key: 'detailState',
+  default: 1,
+})

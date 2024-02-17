@@ -6,7 +6,7 @@ import SearchMain from './pages/Search/SearchMain';
 import { Route, Routes } from 'react-router-dom';
 import { useEffect } from 'react';
 import { QueryClient, QueryClientProvider } from 'react-query';
-import Review from './pages/Review';
+import Detail from './pages/Detail';
 
 
 // 이제 기본 도메인/login 하면 Route로 인해서 해당 페이지로 이동하고, 그 페이지를 <Login/>이 구성하는  것.
@@ -26,7 +26,7 @@ useEffect(() => {
           <Route path="/login" element={<Login />} />
           <Route path="/settings" element={<UserSettings />} />
           <Route path="/main" element={<SearchMain />} />
-          <Route path="/review/:itemId" element={<Review />} />
+          <Route path="/detail/:itemId" element={<Detail />} />
           {/*<Route path="/item" element={<SearchList />} />*/}
         </Routes>
       </Container>
@@ -39,7 +39,6 @@ export default App;
 const Container = styled.div`
     display: flex;
     width: 100%;
-    height: calc(var(--vh, 1vh) * 100);
     background-color: #0A1128;
     @media ${(props) => props.theme.tablet} {
     }

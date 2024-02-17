@@ -47,10 +47,9 @@ export default function ProductDetail(){
 
 const Container = styled.div`
     display: flex;
-    width: 100%;
     min-width: 1000px;   
-    height: 472px;
-    margin: 139px 101px;
+    height: 489px;
+    margin: 139px 101px 50px 101px;
     background-color: #fff;
     border-radius: 10px;
 `
@@ -67,7 +66,7 @@ const FoodImg = styled.img`
     display: flex;
     width: 407px;
     height: 407px;
-    margin: auto 41px;
+    margin: 41px;
 `
 
 const InfoBox = styled.div`

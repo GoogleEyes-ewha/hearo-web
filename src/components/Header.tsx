@@ -26,6 +26,7 @@ const Container = styled.div`
     background-color: red;
     width: 100%;
     height: 35.4px;
+    z-index: 100;
 `
 
 const LogoImgBox = styled.div`
