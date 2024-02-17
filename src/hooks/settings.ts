@@ -7,6 +7,7 @@ interface IUserSettingType {
   disabilityType: number;
   fontSize: number;
   voiceType: string;
+  componentType: string;
 }
 
 export const useGetUserSettings = () => {

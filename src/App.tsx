@@ -11,7 +11,6 @@ import { QueryClient, QueryClientProvider } from 'react-query';
 
 import { RecoilRoot } from 'recoil';
 import { useFetchWishListOnLogin } from './hooks/wishList';
-import Review from './pages/Review';
 import Detail from './pages/Detail';
 
 
@@ -44,10 +43,9 @@ function App() {
           <Route path="/login" element={<Login />} />
           <Route path="/settings" element={<UserSettings />} />
           <Route path="/main" element={<SearchMain />} />
-          <Route path="/detail/:itemId" element={<Review />} />
           <Route path="/item" element={<SearchResult />} />
           <Route path="/item/category/:categoryId" element={<SearchResult />} />  
-          <Route path="/item/:itemId" element={<ProductDetail />} />  
+          <Route path="/item/:itemId" element={<Detail />} />  
         </Routes>
       </Container>
     </QueryClientProvider>

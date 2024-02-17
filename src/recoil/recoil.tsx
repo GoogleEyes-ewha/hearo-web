@@ -50,3 +50,8 @@ export const wishListState = atom<WishItem[]>({
   key: 'wishListState',
   default: [],
 });
+
+export const detailState = atom<number>({
+  key: 'detailState',
+  default: 1,
+})
