@@ -1,3 +1,35 @@
+/* API 관련 */
+export interface ApiResponse {
+    status: number;
+    message: string;
+    data: any;
+};
+
+/* Wish 관련 */
+export interface WishItem {
+    id: number;
+    name: string;
+    img: string;
+    info: string;
+    price: string;
+}
+  
+export interface WishListResponse {
+    code: number;
+    inSuccess: boolean;
+    message: string;
+    result: {
+      itemCount: string;
+      wishList: WishItem[];
+    };
+}
+  
+export interface WishActionResponse {
+    code: number;
+    inSuccess: boolean;
+    message: string;
+    result: string;
+}
 
 /* Product 관련 */
 export interface Product {
@@ -9,17 +41,22 @@ export interface Product {
 };
 
 /* Search 관련 */
+export interface CategorySearchResponse {
+    itemCount: number;
+    itemList: Product[]; // 카테고리 검색 응답
+}
 
-export interface SearchResult {
+export interface KeywordSearchResponse {
     keyword: string;
     itemCount: number;
-    list: Product[];
-};
+    list: Product[]; // 키워드 검색 응답
+}
 
-export interface SearchState {
-    keyword: string;
-    categoryId: string | null;
-    searchHistory: string[]; // 검색기록 
+export interface SearchAPIResponse {
+    code: number;
+    inSuccess: boolean;
+    message: string;
+    result: CategorySearchResponse | KeywordSearchResponse;
 }
 
 /* Auth 관련 */
@@ -27,7 +64,6 @@ export interface UserInfo {
     id: string;
     name: string;
 };
-
 
 export interface UserState {
     isAuthenticated: boolean;

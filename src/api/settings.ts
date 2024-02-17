@@ -5,6 +5,7 @@ interface IUserSettingType{
     disabilityType: number;
     fontSize: number;
     voiceType: string;
+    componentType: string;
 }
 
 export async function getUserSettings() {
