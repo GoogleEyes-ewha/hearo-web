@@ -1,25 +1,32 @@
 import React from 'react';
-import Navbar from '../../components/Navbar';
-import CategoryButtons from '../../components/CategoryBar';
-import VoiceSearchButton from '../../components/elements/Search/VoiceSearchButton';
-import { useRecoilState } from 'recoil';
-import { SearchState } from '../../recoil/atoms/SearchAtom';
-import SearchBar from '../../components/SearchBar';
+import SettingModal from '../../components/Settings/SettingModal';
+
+import Header from '../../components/Header';
+import CategoryBar from '../../components/CategoryBar';
+import InputBox from '../../components/Search/SearchBox';
+import VoiceSearchButton from '../../components/Search/VoiceSearchButton';
+
+import styled from 'styled-components';
 
 const SearchMain: React.FC = () => {
-    const [search,setSearch] = useRecoilState(SearchState);
-
-    // 검색로직 추가 
 
     return (
-        <>
-            <Navbar />
-            <CategoryButtons />
-            <SearchBar />
+        <Container>
+            <SettingModal/>
+            <Header/>
+            <CategoryBar/>
+            <InputBox />
             <VoiceSearchButton />
-            {/* 검색 관련 컴포넌트들 추가 */}
-        </>
+            
+        </Container>
     );
 };
 
 export default SearchMain;
+
+const Container = styled.div`
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 100%;
+`
