@@ -39,5 +39,9 @@ const CategoryContainer = styled.div`
     margin-top: 80px;
 `
 const Wrapper = styled.div`
+    display: flex;
+    width: 100%;
     margin-top: 20px;
+    justify-content: center;
+    align-items: center;
 `

@@ -9,10 +9,12 @@ import { useRecoilState } from 'recoil';
 import { useGetItemReviews } from '../hooks/product';
 import { useParams } from 'react-router-dom';
 import styled from 'styled-components';
+import { getItemReviews } from '../api/product';
 
 export default function Detail(){
     const { itemId } = useParams();
     const [detailNum, setDetailNum] = useRecoilState<number>(detailState);
+    const [data, setData] = useState(null);
     const handleInfo = useCallback((value: number) => {
         if (value !== detailNum) {
           setDetailNum(value);
@@ -20,7 +22,20 @@ export default function Detail(){
     }, [detailNum, setDetailNum]);
     
 
-    const { data, isLoading, error } = useGetItemReviews(itemId); // 리뷰
+    useEffect(() => {
+        const fetchData = async () => {
+            try {
+                const result = await getItemReviews(itemId);
+                setData(result);
+            } catch (error) {
+                console.error('Error fetching item reviews:', error);
+            }
+        };
+
+        if (itemId) {
+            fetchData();
+        }
+    }, [itemId]);
     console.log('itekms' + JSON.stringify(data));
     
     return (
@@ -32,7 +47,7 @@ export default function Detail(){
                     <InfoBtn isSelected = {detailNum === 1} onClick = {() => handleInfo(1)}>Product Description</InfoBtn>
                     <InfoBtn isSelected = {detailNum === 2} onClick = {() => handleInfo(2)}>Review</InfoBtn>
                 </InfoHeader>
-                {detailNum === 1 ? <ProductDescription itemId={itemId}/> : <ProductReview itemId={itemId}/>}
+                {detailNum === 1 ? <ProductDescription itemId={itemId}/> : <ProductReview itemId={itemId} data={data}/>}
             </DetailBox>
         </Container>
     );

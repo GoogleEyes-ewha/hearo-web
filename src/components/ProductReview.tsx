@@ -8,10 +8,11 @@ import { useGetItemAllReviews, useGetItemReviews } from "../hooks/product";
 
 interface ProductReviewProps {
     itemId: string | undefined;
-}
+    data: any; // 이 부분에서 data 속성을 추가
+  }
 
-const ProductReview = React.memo(({ itemId }: ProductReviewProps) => {
-    const { data: reviews, isLoading, error } = useGetItemReviews(itemId);
+const ProductReview = React.memo(({ itemId, data: reviews }: ProductReviewProps) => {
+    //const { data: reviews, isLoading, error } = useGetItemReviews(itemId);
     const { data: reviewList, isLoading: isLoading2, error: error2  } = useGetItemAllReviews(itemId);
     const [currentIndex, setCurrentIndex] = useState(0);
     const handlePreviousClick = () => {
@@ -30,7 +31,7 @@ const ProductReview = React.memo(({ itemId }: ProductReviewProps) => {
     return(
         <Container>
             <ReviewContainer>
-            {isLoading && reviews?.result == null ? (
+            {reviews?.result == null ? (
                 <LottieBox>
                     <Lottie
                         animationData={require('../assets/lottie/Lodding.json')}
