@@ -11,54 +11,69 @@ import WishButton from '../WishButton';
 interface ProductCardProps {
   product: Product;
   isWished: boolean; // 찜 상태
+  itemsPerPage: number;
 };
 
-const ProductCard: React.FC<ProductCardProps> = ({ product, isWished }) => {
+const ProductCard: React.FC<ProductCardProps> = ({ product, isWished, itemsPerPage }) => {
 
   const isLoggedIn = useRecoilValue(isLogin); 
   const loginStatus = isLoggedIn === 'login' ? true : false;
   const navigate = useNavigate(); 
-  // 개수에 따른 card 크기 조절
-  // 로그인 상태에 따른 찜 상태 표시 
 
   const handleCardClick = () => {
     navigate(`/item/${product.id}`);  
   }
 
   return (
-    <Container onClick={handleCardClick}>
+    <Container itemsPerPage={itemsPerPage} onClick={handleCardClick}>
+      <ImgContainer>
+        <ProductImg src={product.img} alt={`${product.name} 이미지`}/>  
+      </ImgContainer>
       <ProductInfo>
-        <img src={product.img} alt={product.name} />
         <h3>{product.name}</h3>
         <p>{product.price}원</p>
         <p>{product.info}</p>
       </ProductInfo>
-      {loginStatus && <WishButton itemId={product.id} isWished={isWished} />}
+      {/* {loginStatus && <WishButton itemId={product.id} isWished={isWished} />} */}
     </Container>
   )
 };
 
-const Container = styled.div`
-  border-radius: 5px;
-  background-size: cover;
-  background-position: center;
-  cursor: pointer; // 클릭 가능한 항목임을 나타내는 마우스 커서
-  /* overflow: hidden; // 내용이 넘칠 경우 숨김 처리 */
-  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2); // 그림자 효과 추가
-  transition: transform 0.2s; // 호버 시 애니메이션 효과
+const Container = styled.div<{ itemsPerPage: number }>`
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  cursor: pointer; 
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2); 
+  transition: transform 0.2s; 
+  position: relative;
 
   &:hover {
     transform: translateY(-5px); // 호버 시 약간 위로 올라가는 효과
+    opacity: 1;
+    visibility:1 ;
   }
 `;
 
+const ImgContainer = styled.div`
+  width: 100%;
+  display: flex;
+  justify-content: center;
+`
+
+const ProductImg = styled.img`
+  border-radius: 20px;
+  object-position: center;
+  object-fit: cover;
+`
+
 const ProductInfo = styled.div`
-  width: 300px;
   height: 180px;
-  flex-shrink: 0;
   border-radius: 5px;
-  background: rgba(255, 255, 255, 0.85);
-  color: #FFF;
+  background: transparent;
+  font-family: SUIT;
+  font-style: bold;
+  color: #fff;
 `
 
 export default ProductCard;
