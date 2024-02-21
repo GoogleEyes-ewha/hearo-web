@@ -71,3 +71,11 @@ export interface UserState {
     refreshToken: string;
     userInfo?: UserInfo;
 };
+
+/* UserSettings 관련 */
+export enum ComponentType {
+    ONE = "ONE",
+    THREE = "THREE",
+    SIX = "SIX",
+}
+

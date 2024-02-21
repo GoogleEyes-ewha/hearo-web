@@ -1,5 +1,5 @@
 import { atom } from 'recoil';
-import { WishItem } from '../types';                 
+import { WishItem, ComponentType } from '../types';               
 
 export const colorBlindModeState = atom<string>({
     key: 'colorBlindModeState',
@@ -18,7 +18,7 @@ export const isSettingModalOpen = atom({
 
 export const isLogin = atom<string>({
     key: 'isLogin',
-    default: 'login', // default 값 조정 필요 
+    default: 'login', 
 })
 
 export const fontSizeState = atom({
@@ -32,7 +32,7 @@ export const userSettingsState = atom({
     disabilityType: -1,
     fontSize: 16,
     voiceType: '',
-    componentType: '',
+    componentType: ComponentType.SIX,
   },
 });
 
@@ -41,7 +41,7 @@ export const stepState = atom({
   default: 1, // 첫 번째 페이지부터 시작
 });
 
-export const searchState = atom<string>({
+export const voiceSearchState = atom<string>({
   key: 'searchState',
   default: '',
 })
