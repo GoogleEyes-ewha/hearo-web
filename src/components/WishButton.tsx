@@ -4,7 +4,7 @@
 
 interface WishButtonProps {
     itemId: number;
-    isWished: boolean;
+    isWished: boolean; // 찜 상태 
 }
 
 const WishButton: React.FC<WishButtonProps> = ({ itemId, isWished }) => {

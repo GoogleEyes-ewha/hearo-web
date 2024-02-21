@@ -45,11 +45,15 @@ const CategoryBarButton = styled.button`
     flex-shrink: 0;
 
     border-radius: 30px;
-    border: 3px solid #FFF;
-    background-color: transparent; // Adjusted for visibility
+    border: 3px solid #ffffff88;
+    background-color: transparent; 
     color: #FFF;
-    margin: 0 8px;
+    margin: 10px;
     cursor: pointer;
+
+    font-family: SUIT;
+    font-weight: bold;
+    font-size: 18px;
 
     &:hover {
         background-color: #FFF;
@@ -59,9 +63,13 @@ const CategoryBarButton = styled.button`
 
 const CategoryBarContainer = styled.div`
     display: flex;
+    flex-wrap: wrap;
     justify-content: center;
     align-items: center;
-    margin-top: 100px; 
+    padding: 20px;
+    /* gap: 20px; */
+    /* margin-top: 50px;  */
 `
+
 
 export default CategoryBar;

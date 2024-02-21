@@ -3,10 +3,10 @@ import { useQuery } from 'react-query';
 import { useParams } from 'react-router-dom';
 import { useLocation } from 'react-router-dom';
 import { useRecoilValue } from 'recoil'; 
-import { wishListState } from '../../recoil/recoil';    
+import { wishListState, userSettingsState } from '../../recoil/recoil';    
 
 // types
-import { SearchAPIResponse, CategorySearchResponse, KeywordSearchResponse } from '../../types';
+import { SearchAPIResponse, CategorySearchResponse, KeywordSearchResponse, ComponentType } from '../../types';
 
 // api 
 import { getSearchResult } from '../../api/search';
@@ -30,10 +30,12 @@ function isCategorySearchResponse(response: CategorySearchResponse | KeywordSear
 const ProductContainer: React.FC = () => {
 
     const queryParam = useQueryParams();
-    const { categoryId } = useParams();
     const keyword = queryParam.get('keyword'); // 키워드로 검색한 경우
-    //const categoryId = queryParam.get('categoryId'); // 카테고리 기반 검색한 경우 
-    const itemsPerPage = 3; // 일단 3개의 항목을 보여준다고 하드코딩 
+    const { categoryId } = useParams();
+
+    const { componentType } = useRecoilValue(userSettingsState); 
+    const itemsPerPage = componentType == ComponentType.THREE ? 3  
+                        : (componentType == ComponentType.ONE ? 1 : 6);
 
     const [currentPage, setCurrentPage] = useState(1);
 
@@ -69,9 +71,9 @@ const ProductContainer: React.FC = () => {
 
     return (
         <>
-        <CardsContainer>
+        <CardsContainer itemsPerPage={itemsPerPage}>
             {currentPageItems.map((product) => (
-                <ProductCard key={product.id} product={product} isWished={wishList.some(wishItem => wishItem.id === product.id)}/>
+                <ProductCard key={product.id} product={product} isWished={wishList.some(wishItem => wishItem.id === product.id)} itemsPerPage={itemsPerPage}/>
             ))}
         </CardsContainer>
         <PaginationContainer>
@@ -81,15 +83,47 @@ const ProductContainer: React.FC = () => {
     )
 }
 
-/* ProductContainer 컴포넌트 내 CardsContainer 스타일 */
-const CardsContainer = styled.div`
+
+const CardsContainer = styled.div<{ itemsPerPage: number }>`
+    /* display: grid;
+    grid-template-columns: repeat(${props => props.itemsPerPage}, 1fr);
+    grid-gap: 20px;
+    padding: 20px;
+    width: 100%; */
+
     display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    gap: 20px;
-    width: 100%;
-    max-width: 1200px; // 브라우저 너비에 따라 조정
-    margin: 0 auto; // 중앙 정렬
-    margin-bottom: 40px; // Pagination과의 간격 조정
+    grid-gap: 20px; /* 그리드 아이템 사이의 간격 */
+    justify-content: center; /* 그리드 아이템을 중앙 정렬 */
+    ${props => props.itemsPerPage === 1 && `
+        grid-template-columns: repeat(1, 1fr);
+    `}
+    ${props => props.itemsPerPage === 3 && `
+        grid-template-columns: repeat(3, 1fr);
+    `}
+    ${props => props.itemsPerPage === 6 && `
+        grid-template-columns: repeat(3, 1fr); /* 2행 3열을 위해 3개의 열을 정의 */
+    `}
+    width: 80%; /* 컨테이너의 전체 너비 */
+
+    /* display: flex;
+    flex-wrap: wrap;
+    gap: 20px; 
+    justify-content: center;
+    ${props => props.itemsPerPage === 1 && `
+    & > div {
+        flex: 0 0 100%;
+    }
+    `}
+    ${props => props.itemsPerPage === 3 && `
+    & > div {
+        flex: 0 0 calc(33.333% - 20px);
+    }
+    `}
+    ${props => props.itemsPerPage === 6 && `
+    & > div {
+        flex: 0 0 calc(50% - 20px);
+    }
+    `} */
 `;
 
 const PaginationContainer = styled.div`

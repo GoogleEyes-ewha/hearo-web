@@ -1,6 +1,6 @@
 import React, { useCallback, useEffect, useState } from 'react';
+
 import Header from '../components/Header';
-import styled from 'styled-components';
 import ProductDetail from '../components/ProductDetail';
 import ProductDescription from '../components/ProductDescription';
 import ProductReview from '../components/ProductReview';
@@ -8,6 +8,7 @@ import {detailState} from '../recoil/recoil';
 import { useRecoilState } from 'recoil';
 import { useGetItemReviews } from '../hooks/product';
 import { useParams } from 'react-router-dom';
+import styled from 'styled-components';
 
 export default function Detail(){
     const { itemId } = useParams();
@@ -16,9 +17,10 @@ export default function Detail(){
         if (value !== detailNum) {
           setDetailNum(value);
         }
-      }, [detailNum, setDetailNum]);
+    }, [detailNum, setDetailNum]);
     
-    const { data, isLoading, error } = useGetItemReviews(itemId);
+
+    const { data, isLoading, error } = useGetItemReviews(itemId); // 리뷰
     console.log('itekms' + JSON.stringify(data));
     
     return (
@@ -30,12 +32,11 @@ export default function Detail(){
                     <InfoBtn isSelected = {detailNum === 1} onClick = {() => handleInfo(1)}>Product Description</InfoBtn>
                     <InfoBtn isSelected = {detailNum === 2} onClick = {() => handleInfo(2)}>Review</InfoBtn>
                 </InfoHeader>
-                {detailNum === 1 ? <ProductDescription/> : <ProductReview itemId={itemId}/>}
+                {detailNum === 1 ? <ProductDescription itemId={itemId}/> : <ProductReview itemId={itemId}/>}
             </DetailBox>
         </Container>
     );
 };
-
 
 
 const Container = styled.div`

@@ -1,6 +1,4 @@
-import { WishActionResponse, WishListResponse } from '../types';
 import axiosInstance from './axios';
-
 
 // 사용자의 찜 목록 조회
 // export const fetchWishItems = async (): Promise<WishListResponse> => {
