@@ -13,10 +13,7 @@ import { RecoilRoot } from 'recoil';
 import { useFetchWishListOnLogin } from './hooks/wishList';
 import Detail from './pages/Detail';
 
-
-
 // 이제 기본 도메인/login 하면 Route로 인해서 해당 페이지로 이동하고, 그 페이지를 <Login/>이 구성하는  것.
-
 
 function App() {
 

@@ -1,38 +1,28 @@
 import React from 'react';
-import { useMutation, useQueryClient } from 'react-query';
-import { addWishItem, removeWishItem } from '../api/wish';
+import { useAddWishItem, useRemoveWishItem } from '../hooks/wishList';  
 
 interface WishButtonProps {
     itemId: number;
-    isWished: boolean;
+    isWished: boolean; // 찜 상태 
 }
 
 const WishButton: React.FC<WishButtonProps> = ({ itemId, isWished }) => {
-    const queryClient = useQueryClient();
-  
-    const addMutation = useMutation(() => addWishItem(itemId), {
-      onSuccess: () => {
-        queryClient.invalidateQueries('wishItems');
-      },
-    });
-  
-    const removeMutation = useMutation(() => removeWishItem(itemId), {
-      onSuccess: () => {
-        queryClient.invalidateQueries('wishItems');
-      },
-    });
-  
+
+    const addWishItem = useAddWishItem();
+    const removeWishItem = useRemoveWishItem();
+
+    const handleClick = async () => {
+      if(isWished) {
+        await removeWishItem(itemId);
+      }
+      else {
+        await addWishItem(itemId);
+      }
+    };
+    
+    
     return (
-      <button
-        onClick={() => {
-          if (isWished) {
-            removeMutation.mutate();
-          } else {
-            addMutation.mutate();
-          }
-        }}
-        disabled={addMutation.isLoading || removeMutation.isLoading}
-      >
+      <button onClick={handleClick}>
         {isWished ? '찜 해제' : '찜하기'}
       </button>
     );
