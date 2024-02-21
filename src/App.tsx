@@ -55,6 +55,7 @@ export default App;
 const Container = styled.div`
     display: flex;
     width: 100%;
+    min-height: 100vh;
     background-color: #0A1128;
     @media ${(props) => props.theme.tablet} {
     }

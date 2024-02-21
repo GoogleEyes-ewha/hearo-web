@@ -51,9 +51,9 @@ const ProductReview = React.memo(({ itemId, data: reviews }: ProductReviewProps)
                         Refresh summarized reviews
                     </RefreshBtn>
                     <ReviewTitle>Positive review</ReviewTitle>
-                    <ReviewBox>{/*reviews?.result.positiveSummary*/}</ReviewBox>
+                    <ReviewBox>{reviews?.result.positiveSummary}</ReviewBox>
                     <ReviewTitle>Negative review</ReviewTitle>
-                    <ReviewBox>{/*reviews?.result.negativeSummary*/}</ReviewBox>
+                    <ReviewBox>{reviews?.result.negativeSummary}</ReviewBox>
                 </>
             )}
             </ReviewContainer>
