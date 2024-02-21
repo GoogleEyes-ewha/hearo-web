@@ -1,5 +1,6 @@
 import { useQuery } from "react-query";
 import { getItem, getItemReviews, getItemAllReviews } from "../api/product";
+import { StringLiteral } from "typescript";
 
 interface ReviewData {
   code: number;
@@ -26,7 +27,25 @@ interface AllReviewData {
   };
 }
 
-export const useGetItem = (itemId: string | undefined) => {
+interface DetailData {
+  code: number;
+  inSuccess: boolean;
+  message: string;
+  result: {
+    name: string;
+    itemInfo: string;
+    price: number;
+    itemImg: string;
+    detailImg: string;
+    allergy: string;
+    nutritionImg: string;
+    nutritionText: string;
+    kurlyUrl: string;
+    isWish: boolean;
+  }
+}
+
+export const useGetItem = (itemId: string | undefined): { data: DetailData | undefined, isLoading: boolean, error: any } => {
   return useQuery(['item', itemId], () => getItem(itemId), {
     enabled: !!itemId, // itemId가 존재할 때만 쿼리 실행
     refetchOnWindowFocus: false,

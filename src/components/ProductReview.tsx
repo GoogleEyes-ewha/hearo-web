@@ -8,8 +8,7 @@ import { useGetItemAllReviews, useGetItemReviews } from "../hooks/product";
 
 interface ProductReviewProps {
     itemId: string | undefined;
-  }
-
+}
 
 const ProductReview = React.memo(({ itemId }: ProductReviewProps) => {
     const { data: reviews, isLoading, error } = useGetItemReviews(itemId);
@@ -26,7 +25,7 @@ const ProductReview = React.memo(({ itemId }: ProductReviewProps) => {
     };
 
 
-    console.log('review' + JSON.stringify(reviews) );
+    // console.log('review' + JSON.stringify(reviews) );
 
     return(
         <Container>

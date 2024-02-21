@@ -8,7 +8,7 @@ import Lottie from 'lottie-react';
 export default function ProductDetail(){
     const { itemId } = useParams();
     console.log('itemId' + itemId);
-    const { data, isLoading, error } = useGetItem(itemId);
+    const { data: data, isLoading, error } = useGetItem(itemId);
 
     console.log(data);
     if (error) return <div>An error occurred</div>;
@@ -27,11 +27,11 @@ export default function ProductDetail(){
             </LottieBox>
         ):(
             <>
-                <FoodImg src={data.result.itemImg}></FoodImg>
+                <FoodImg src={data?.result.itemImg}></FoodImg>
                 <InfoBox>
-                    <FoodName>{data.result.name}</FoodName>
-                    <FoodInfo>{data.result.itemInfo}</FoodInfo>
-                    <FoodPrice>{data.result.price.toLocaleString()} won</FoodPrice>
+                    <FoodName>{data?.result.name}</FoodName>
+                    <FoodInfo>{data?.result.itemInfo}</FoodInfo>
+                    <FoodPrice>{data?.result.price.toLocaleString()} won</FoodPrice>
                     <div style={{display: 'flex', gap: '31px'}}>
                         <CartBtn>ADD TO CART </CartBtn>
                         <CartBtn style={{backgroundColor: '#0A1128', color: '#fff'}}>BUY NOW</CartBtn>
