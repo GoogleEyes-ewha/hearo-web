@@ -10,7 +10,7 @@ import { useEffect } from 'react';
 import { QueryClient, QueryClientProvider } from 'react-query';
 
 import { RecoilRoot } from 'recoil';
-import { useFetchWishListOnLogin } from './hooks/wishList';
+//import { useFetchWishListOnLogin } from './hooks/wishList';
 import Detail from './pages/Detail';
 
 
@@ -20,7 +20,7 @@ import Detail from './pages/Detail';
 
 function App() {
 
-  useFetchWishListOnLogin(); // 로그인 되었을 경우 wishList 가져오기
+  //useFetchWishListOnLogin(); // 로그인 되었을 경우 wishList 가져오기
 
   function setScreenSize() {
     let vh = window.innerHeight * 0.01;
