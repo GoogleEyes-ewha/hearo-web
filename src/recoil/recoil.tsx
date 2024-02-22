@@ -13,7 +13,7 @@ export const isModalOpen = atom({
 
 export const isSettingModalOpen = atom({
   key: 'isSettingModalOpen',
-  default: true,
+  default: false,
 });
 
 export const isLogin = atom<string>({

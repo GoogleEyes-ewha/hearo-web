@@ -25,7 +25,7 @@ export const useGetUserSettings = () => {
     },
     onError: (error) => {
       console.error("Error fetching user settings:", error);
-      setIsOpen(true); // 오류 발생 시 모달 열기
+      setIsOpen(false); // 오류 발생 시 모달 닫기
     }
   });
 };

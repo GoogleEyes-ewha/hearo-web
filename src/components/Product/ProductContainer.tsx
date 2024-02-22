@@ -70,7 +70,7 @@ const ProductContainer: React.FC = () => {
 
 
     return (
-        <>
+        <Container>
         <CardsContainer itemsPerPage={itemsPerPage}>
             {currentPageItems.map((product) => (
                 <ProductCard key={product.id} product={product} isWished={wishList.some(wishItem => wishItem.id === product.id)} itemsPerPage={itemsPerPage}/>
@@ -79,11 +79,16 @@ const ProductContainer: React.FC = () => {
         <PaginationContainer>
             <Pagination totalPages={totalPages} currentPage={currentPage} setPage={setCurrentPage} />
         </PaginationContainer>
-        </>
+        </Container>
     )
 }
 
-
+const Container = styled.div`
+    display: flex;
+    position: relative;
+    width: 100%;
+    justify-content: center;
+`
 const CardsContainer = styled.div<{ itemsPerPage: number }>`
     /* display: grid;
     grid-template-columns: repeat(${props => props.itemsPerPage}, 1fr);
@@ -103,7 +108,8 @@ const CardsContainer = styled.div<{ itemsPerPage: number }>`
     ${props => props.itemsPerPage === 6 && `
         grid-template-columns: repeat(3, 1fr); /* 2행 3열을 위해 3개의 열을 정의 */
     `}
-    width: 80%; /* 컨테이너의 전체 너비 */
+    width: 100%; /* 컨테이너의 전체 너비 */
+    margin-bottom: 100px;
 
     /* display: flex;
     flex-wrap: wrap;
@@ -128,12 +134,13 @@ const CardsContainer = styled.div<{ itemsPerPage: number }>`
 
 const PaginationContainer = styled.div`
     display: flex;
+    position: absolute;
     justify-content: center;
     align-items: center;
     width: 100%;
     padding: 20px 0; // 상하 패딩 추가
     box-sizing: border-box; // 패딩을 너비에 포함
-    margin-top: auto; // 부모 컨테이너에서 가능한 모든 여백을 상단에 추가
+    bottom: 20px;
 `;
 
 export default ProductContainer;

@@ -10,14 +10,14 @@ import { useEffect } from 'react';
 import { QueryClient, QueryClientProvider } from 'react-query';
 
 import { RecoilRoot } from 'recoil';
-import { useFetchWishListOnLogin } from './hooks/wishList';
+//import { useFetchWishListOnLogin } from './hooks/wishList';
 import Detail from './pages/Detail';
 
 // 이제 기본 도메인/login 하면 Route로 인해서 해당 페이지로 이동하고, 그 페이지를 <Login/>이 구성하는  것.
 
 function App() {
 
-  useFetchWishListOnLogin(); // 로그인 되었을 경우 wishList 가져오기
+  //useFetchWishListOnLogin(); // 로그인 되었을 경우 wishList 가져오기
 
   function setScreenSize() {
     let vh = window.innerHeight * 0.01;
@@ -55,6 +55,7 @@ export default App;
 const Container = styled.div`
     display: flex;
     width: 100%;
+    min-height: 100vh;
     background-color: #0A1128;
     @media ${(props) => props.theme.tablet} {
     }

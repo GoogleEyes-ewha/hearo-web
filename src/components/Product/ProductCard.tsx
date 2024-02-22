@@ -6,7 +6,7 @@ import { isLogin } from '../../recoil/recoil'; // 상태 관리 파일에서 isL
 import { Product } from '../../types';
 import { useNavigate } from 'react-router-dom';
 
-import WishButton from '../WishButton';
+//import WishButton from '../WishButton';
 
 interface ProductCardProps {
   product: Product;
@@ -34,7 +34,7 @@ const ProductCard: React.FC<ProductCardProps> = ({ product, isWished, itemsPerPa
         <p>{product.price}원</p>
         <p>{product.info}</p>
       </ProductInfo>
-      {/* {loginStatus && <WishButton itemId={product.id} isWished={isWished} />} */}
+      {/*loginStatus && <WishButton itemId={product.id} isWished={isWished} />*/}
     </Container>
   )
 };
