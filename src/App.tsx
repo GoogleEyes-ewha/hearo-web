@@ -3,10 +3,11 @@ import Login from './pages/Auth/Login'; //만들어놓은 Login 페이지 가져
 import UserSettings from './pages/Settings/UserSettings';
 import SearchMain from './pages/Search/SearchMain';
 import SearchResult from './pages/Search/SearchResult';
-import ProductDetail from './components/ProductDetail';
+
 
 import { Route, Routes } from 'react-router-dom';
 import { useEffect } from 'react';
+import { useNavigate } from 'react-router-dom';
 import { QueryClient, QueryClientProvider } from 'react-query';
 
 import { RecoilRoot } from 'recoil';
@@ -18,6 +19,27 @@ import Detail from './pages/Detail';
 function App() {
 
   //useFetchWishListOnLogin(); // 로그인 되었을 경우 wishList 가져오기
+
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    const handleKeyPress = (event: KeyboardEvent) => {
+      if (event.ctrlKey && event.altKey) {
+        navigate('/main');
+      } 
+      else if (event.altKey && !isNaN(Number(event.key))) {
+        const categoryId = parseInt(event.key);
+        if (categoryId > 0 && categoryId < 9) {
+          navigate(`/item/category/${categoryId}`);
+        }
+      }
+    };
+
+    document.addEventListener('keydown', handleKeyPress);
+    return () => {
+      document.removeEventListener('keydown', handleKeyPress);
+    };
+  }, [navigate]);
 
   function setScreenSize() {
     let vh = window.innerHeight * 0.01;
