@@ -24,8 +24,19 @@ const ProductCard: React.FC<ProductCardProps> = ({ product, isWished, itemsperpa
     navigate(`/item/${product.id}`);  
   }
 
+  const handleKeyDown = (event: React.KeyboardEvent<HTMLDivElement>) => {
+    if(event.key === 'Enter') {
+      navigate(`/item/${product.id}`);
+    }
+  };
+
   return (
-    <Container itemsperpage={itemsperpage} onClick={handleCardClick}>
+    <Container 
+      tabIndex={0} 
+      itemsperpage={itemsperpage} 
+      onClick={handleCardClick} 
+      onKeyDown={handleKeyDown}
+    >
       <ImgContainer>
         <ProductImg src={product.img} alt={`${product.name} 이미지`}/>  
       </ImgContainer>
