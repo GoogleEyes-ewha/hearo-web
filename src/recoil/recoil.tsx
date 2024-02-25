@@ -8,12 +8,12 @@ export const colorBlindModeState = atom<string>({
 
 export const isModalOpen = atom({
   key: 'isModalOpen',
-  default: false,
+  default: true,
 });
 
 export const isSettingModalOpen = atom({
   key: 'isSettingModalOpen',
-  default: false,
+  default: true,
 });
 
 export const isLogin = atom<string>({
@@ -54,4 +54,9 @@ export const wishListState = atom<WishItem[]>({
 export const detailState = atom<number>({
   key: 'detailState',
   default: 1,
+})
+
+export const userNameState= atom<string>({
+  key: 'userName',
+  default: '',
 })

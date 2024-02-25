@@ -3,17 +3,38 @@ import { useNavigate } from 'react-router-dom';
 import { useRecoilState } from 'recoil';
 import axiosInstance from '../api/axios';
 
-import { isLogin } from '../recoil/recoil'
+import { isLogin, userNameState } from '../recoil/recoil'
 
 import styled from 'styled-components';
 import loginButton from '../assets/images/loginButton.png';
 import Logo from '../assets/images/logo.png';
 import Cookies from 'js-cookie';
+import { useGetUserInfo } from '../hooks/settings';
+import { QueryClient } from 'react-query';
 //import FavoriteIcon from '@mui/icons-material/Favorite';
+
+const queryClient = new QueryClient();
 
 // Header
 const Header: React.FC = () => {
     const navigate = useNavigate();
+    const [loginState, setLoginState] = useRecoilState(isLogin);
+    const [username, setUsername] = useRecoilState(userNameState);
+
+    useGetUserInfo();
+
+
+    const handleLoginClick = () => {
+        if(loginState === 'login') {
+            Cookies.remove('accessToken');
+            Cookies.remove('refreshToken');
+            queryClient.invalidateQueries('userInfo');
+            setLoginState('logout');
+            navigate('/main');
+        }
+        navigate('/login');
+
+    };
 
     const handleClick = () => {
         navigate('/main');
@@ -22,7 +43,19 @@ const Header: React.FC = () => {
     return (
         <Container>
             <LogoImgBox onClick={handleClick}/>
-            <LoginButton />
+            <>
+            {loginState === 'login' && username ? 
+            (
+                <>
+                    <WelcomeMessage>{username} ! welcome :D</WelcomeMessage>
+                    <StyledLogoutButton onClick={handleLoginClick}>Logout</StyledLogoutButton>
+                </>
+            ):(
+                <StyledButton onClick={handleLoginClick}>
+                    <img src={loginButton} alt="login" />
+                </StyledButton>
+            )}
+        </>
             {/* <LikePageButton /> */}
         </Container>
     );
@@ -42,56 +75,6 @@ const Header: React.FC = () => {
 //         </StyledButton>
 //     )
 // };
-
-// Login Button 
-const LoginButton: React.FC = () => {
-    const navigate = useNavigate();
-    const [loginState, setLoginState] = useRecoilState(isLogin);
-    const [username, setUsername] = useState('');
-
-    useEffect(() => {
-        if(loginState === 'login') {
-            axiosInstance.get('/user/info')
-            .then(response => {
-                const { code, inSuccess, result } = response.data;
-                if(code === 1000 && inSuccess && result) {
-                    setUsername(result.username);
-                }
-            })
-            .catch(error => {
-                console.error('Error fetching user info: ', error);
-            });
-        }
-    }, [loginState]);
-
-    const handleLoginClick = () => {
-        if(loginState === 'login') {
-            Cookies.remove('accessToken');
-            Cookies.remove('refreshToken');
-            setLoginState('logout');
-            navigate('/main');
-        }
-        navigate('/login');
-
-    };
-
-// login 되어있으면 환영메시지, 아니면 로그인 버튼 
-    return (
-        <>
-            {loginState === 'login' && username ? 
-            (
-                <>
-                    <WelcomeMessage>{username} ! welcome :D</WelcomeMessage>
-                    <StyledLogoutButton onClick={handleLoginClick}>Logout</StyledLogoutButton>
-                </>
-            ):(
-                <StyledButton onClick={handleLoginClick}>
-                    <img src={loginButton} alt="login" />
-                </StyledButton>
-            )}
-        </>
-    );
-};
 
 const StyledButton = styled.button`
     display: flex;
