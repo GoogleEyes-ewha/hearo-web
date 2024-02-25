@@ -1,7 +1,8 @@
 import { useMutation, useQuery } from 'react-query';
-import { getUserSettings, postUserSettings } from '../api/settings';
-import { fontSizeState, isSettingModalOpen } from '../recoil/recoil';
+import { getUserInfo, getUserSettings, postUserSettings } from '../api/settings';
+import { fontSizeState, isLogin, isSettingModalOpen, userNameState } from '../recoil/recoil';
 import { useRecoilState } from 'recoil';
+import Cookies from 'js-cookie';
 
 interface IUserSettingType {
   disabilityType: number;
@@ -10,9 +11,28 @@ interface IUserSettingType {
   componentType: string;
 }
 
+export const useGetUserInfo = () => {
+  const [username, setUsername] = useRecoilState(userNameState);
+  const [loginState, setLoginState] = useRecoilState(isLogin);
+
+  return useQuery('userInfo', getUserInfo, {
+    enabled: !!Cookies.get('accessToken'), // accessToken 쿠키가 있는 경우에만 쿼리 실행
+    onSuccess: (data) => {
+      const { code, inSuccess, result } = data;
+      if (code === 1000 && inSuccess && result) {
+        setUsername(result.username); // Recoil 상태 업데이트
+        setLoginState('login');
+      }
+    },
+    onError: (error) => {
+      console.error('Error fetching user info: ', error);
+    }
+  });
+};
+
 export const useGetUserSettings = () => {
   const [, setIsOpen] = useRecoilState(isSettingModalOpen);
-  useQuery('userSettings', getUserSettings, {
+  return useQuery('userSettings', getUserSettings, {
     onSuccess: (data) => {
       if (data.code === 1000 && data.inSuccess) {
         if (data.result) {
@@ -23,9 +43,14 @@ export const useGetUserSettings = () => {
         }
       }
     },
-    onError: (error) => {
-      console.error("Error fetching user settings:", error);
-      setIsOpen(false); // 오류 발생 시 모달 닫기
+    onError: (error: any) => {
+      if (error.response && error.response.status === 401) {
+        // 401 에러 발생 시 모달 열기
+        setIsOpen(true);
+      } else {
+        // 그 외의 경우에는 모달 닫기
+        setIsOpen(false);
+      }
     }
   });
 };

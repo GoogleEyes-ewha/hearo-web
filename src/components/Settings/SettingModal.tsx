@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useRecoilState } from 'recoil';
 import { isSettingModalOpen } from '../../recoil/recoil';
 import styled from 'styled-components';
@@ -7,8 +7,9 @@ import { useNavigate } from 'react-router-dom';
 import { useGetUserSettings } from '../../hooks/settings';
 
 export default function SettingModal() {
-  useGetUserSettings();
+
   const [isOpen, setIsOpen] = useRecoilState(isSettingModalOpen);
+  useGetUserSettings();
   const navigate = useNavigate();
 
   const closeModal = () => {

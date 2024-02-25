@@ -7,6 +7,11 @@ interface IUserSettingType{
     componentType: string;
 }
 
+export async function getUserInfo() {
+    const response = await axiosInstance.get('/user/info');
+    return response.data;
+}
+
 export async function getUserSettings() {
     const response = await axiosInstance.get('/user/custom');
     return response.data;
