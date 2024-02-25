@@ -73,7 +73,7 @@ const ProductContainer: React.FC = () => {
         <Container>
         <CardsContainer itemsPerPage={itemsPerPage}>
             {currentPageItems.map((product) => (
-                <ProductCard key={product.id} product={product} isWished={wishList.some(wishItem => wishItem.id === product.id)} itemsPerPage={itemsPerPage}/>
+                <ProductCard key={product.id} product={product} isWished={wishList.some(wishItem => wishItem.id === product.id)} itemsperpage={itemsPerPage}/>
             ))}
         </CardsContainer>
         <PaginationContainer>

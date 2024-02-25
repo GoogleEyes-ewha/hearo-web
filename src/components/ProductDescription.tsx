@@ -29,6 +29,12 @@ const ProductDescription = React.memo(({ itemId }: ProductDescriptionProps) => {
     }
   };
 
+  const handleKeyDown = (event: React.KeyboardEvent<HTMLImageElement>) => {
+    if (event.key === "Enter") {
+      handleSpeak(details?.result.nutritionText);
+    }
+  }; 
+
   return (
     <Container>
       {/* <DescriptionContainer > */}
@@ -66,9 +72,11 @@ const ProductDescription = React.memo(({ itemId }: ProductDescriptionProps) => {
               <u>Nutrition Facts</u>
             </Title>
             <Speaker
+              tabIndex={0}
               src={speaker}
               alt="speaker"
               onClick={() => handleSpeak(details?.result.nutritionText)}
+              onKeyDown={handleKeyDown}
             />
           </SpeakerContainer>
           <NutritionImg

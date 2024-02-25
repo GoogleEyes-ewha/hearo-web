@@ -1,6 +1,6 @@
 import React from "react";
 import styled from "styled-components";
-//import MicIcon from '@mui/icons-material/Mic';
+import MicIcon from '@mui/icons-material/Mic';
 import { useSetRecoilState } from "recoil";
 import { voiceSearchState } from "../../recoil/recoil";
 
@@ -37,7 +37,7 @@ const VoiceSearchButton: React.FC<ButtonProps> = ({ width, height }) => {
 
   return (
     <StyledButton onClick={startVoiceRecognition} width={width} height={height}>
-      {/*<MicIcon />*/}
+      <MicIcon />
     </StyledButton>
   );
 };

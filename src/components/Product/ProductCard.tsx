@@ -11,10 +11,10 @@ import { useNavigate } from 'react-router-dom';
 interface ProductCardProps {
   product: Product;
   isWished: boolean; // 찜 상태
-  itemsPerPage: number;
+  itemsperpage: number;
 };
 
-const ProductCard: React.FC<ProductCardProps> = ({ product, isWished, itemsPerPage }) => {
+const ProductCard: React.FC<ProductCardProps> = ({ product, isWished, itemsperpage }) => {
 
   const isLoggedIn = useRecoilValue(isLogin); 
   const loginStatus = isLoggedIn === 'login' ? true : false;
@@ -24,8 +24,19 @@ const ProductCard: React.FC<ProductCardProps> = ({ product, isWished, itemsPerPa
     navigate(`/item/${product.id}`);  
   }
 
+  const handleKeyDown = (event: React.KeyboardEvent<HTMLDivElement>) => {
+    if(event.key === 'Enter') {
+      navigate(`/item/${product.id}`);
+    }
+  };
+
   return (
-    <Container itemsPerPage={itemsPerPage} onClick={handleCardClick}>
+    <Container 
+      tabIndex={0} 
+      itemsperpage={itemsperpage} 
+      onClick={handleCardClick} 
+      onKeyDown={handleKeyDown}
+    >
       <ImgContainer>
         <ProductImg src={product.img} alt={`${product.name} 이미지`}/>  
       </ImgContainer>
@@ -39,7 +50,7 @@ const ProductCard: React.FC<ProductCardProps> = ({ product, isWished, itemsPerPa
   )
 };
 
-const Container = styled.div<{ itemsPerPage: number }>`
+const Container = styled.div<{ itemsperpage: number }>`
   display: flex;
   flex-wrap: wrap;
   justify-content: center;

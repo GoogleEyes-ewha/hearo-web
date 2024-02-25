@@ -76,6 +76,77 @@ const Header: React.FC = () => {
 //     )
 // };
 
+// Login Button 
+const LoginButton: React.FC = () => {
+    const navigate = useNavigate();
+    const [loginState, setLoginState] = useRecoilState(isLogin);
+    const [username, setUsername] = useState('');
+
+    useEffect(() => {
+        if(loginState === 'login') {
+            axiosInstance.get('/user/info')
+            .then(response => {
+                const { code, inSuccess, result } = response.data;
+                if(code === 1000 && inSuccess && result) {
+                    setUsername(result.username);
+                }
+            })
+            .catch(error => {
+                console.error('Error fetching user info: ', error);
+            });
+        }
+    }, [loginState]);
+
+    // 로그인 
+    const handleLoginClick = () => {
+        navigate('/login');
+    };
+    
+    // 로그아웃 
+    const handleLogout = () => {
+        Cookies.remove('accessToken');
+        Cookies.remove('refreshToken');
+        setLoginState('logout');
+        navigate('/main');
+    }
+
+    // 단축키 
+    const handleKeyDown = (event: KeyboardEvent) => {
+        if (event.ctrlKey && event.key === 'x') {
+            handleLogout();
+        }
+
+        if (event.ctrlKey && event.shiftKey) {
+            navigate('/login');
+        }
+    }
+
+    // event handler 등록 
+    useEffect(() => {
+        document.addEventListener('keydown',handleKeyDown);
+        return () => {
+            document.removeEventListener('keydown',handleKeyDown);
+        };
+    },[]);
+
+// login 되어있으면 환영메시지, 아니면 로그인 버튼 
+    return (
+        <>
+            {loginState === 'login' && username ? 
+            (
+                <>
+                    <WelcomeMessage>{username} ! welcome :D</WelcomeMessage>
+                    <StyledLogoutButton onClick={handleLogout}>Logout</StyledLogoutButton>
+                </>
+            ):(
+                <StyledButton onClick={handleLoginClick}>
+                    <img src={loginButton} alt="login" />
+                </StyledButton>
+            )}
+        </>
+    );
+};
+
 const StyledButton = styled.button`
     display: flex;
     align-items: center;
