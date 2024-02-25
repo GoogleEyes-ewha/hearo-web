@@ -5,6 +5,7 @@ import { stepState, userSettingsState } from '../../recoil/recoil';
 import { DisabilityStep } from '../../components/Settings/DisabilityStep';
 import { FontSizeStep } from '../../components/Settings/FontSizeStep';
 import { VoiceStep } from '../../components/Settings/VoiceStep';
+import { ComponentStep } from '../../components/Settings/ComponentStep';
 
 export default function UserSettings(){
   const [currentStep, setCurrentStep] = useRecoilState(stepState);
@@ -24,6 +25,8 @@ export default function UserSettings(){
         return <FontSizeStep onNext={handleNextStep} />;
       case 3:
         return <VoiceStep onNext={handleNextStep} />;
+      case 4:
+        return <ComponentStep onNext={handleNextStep} />;
     }
   }
 

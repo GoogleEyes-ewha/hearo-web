@@ -129,7 +129,7 @@ const GoogleSignUpBox = styled.div`
   display: flex;
   width: 60%;
   position: absolute;
-  bottom: 100px;
+  bottom: 70px;
   left: 15%;
   margin-top: 84px;
   padding: 2% 5%;

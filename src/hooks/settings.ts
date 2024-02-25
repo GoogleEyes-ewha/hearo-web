@@ -1,5 +1,5 @@
 import { useMutation, useQuery } from 'react-query';
-import { getUserInfo, getUserSettings, postUserSettings } from '../api/settings';
+import { getUserInfo, getUserSettings, postUserComponentSettings, postUserSettings } from '../api/settings';
 import { fontSizeState, isLogin, isSettingModalOpen, userNameState } from '../recoil/recoil';
 import { useRecoilState } from 'recoil';
 import Cookies from 'js-cookie';
@@ -32,10 +32,13 @@ export const useGetUserInfo = () => {
 
 export const useGetUserSettings = () => {
   const [, setIsOpen] = useRecoilState(isSettingModalOpen);
+
   return useQuery('userSettings', getUserSettings, {
     onSuccess: (data) => {
+      console.log('here'+JSON.stringify(data))
       if (data.code === 1000 && data.inSuccess) {
         if (data.result) {
+          console.log('here22'+JSON.stringify(data))
           setIsOpen(false);
         } else {
           // 설정이 비어있으면 모달 열기
@@ -72,3 +75,22 @@ export const usePostUserSettings = () => {
     },
   });
 };
+
+export const usePostUserComponentSettings = () => {
+  return useMutation((settings: IUserSettingType) => postUserComponentSettings(settings), {
+    onSuccess: (data) => {
+      // Check if the response code is 1000
+      if (data.code === 1000) {
+        // Handle successful update
+        console.log('Settings updated successfully:', data);
+      } else {
+        console.error('Error updating settings: Unexpected response code', data);
+      }
+    },
+    onError: (error) => {
+      // Handle error condition
+      console.error('Error updating settings:', error);
+    },
+  });
+};
+

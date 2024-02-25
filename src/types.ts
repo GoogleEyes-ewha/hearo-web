@@ -77,5 +77,8 @@ export enum ComponentType {
     ONE = "ONE",
     THREE = "THREE",
     SIX = "SIX",
+    DEFAULT = "",
 }
+
+
 

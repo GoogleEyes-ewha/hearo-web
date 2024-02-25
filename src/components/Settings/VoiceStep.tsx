@@ -2,7 +2,7 @@ import { useRecoilState } from "recoil";
 import { userSettingsState } from "../../recoil/recoil";
 import { usePostUserSettings } from "../../hooks/settings";
 import styled from "styled-components";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import MaleImg from "../../assets/images/MALE_VOICE.png";
 import FemaleImg from "../../assets/images/FEMALE_VOICE.png";
 import { useNavigate } from "react-router-dom";
@@ -16,7 +16,14 @@ export const VoiceStep: React.FC<StepProps> = ({ onNext }) => {
     const [checkedValue, setCheckedValue] = useState('');
     const { mutate: postUserSettings, isLoading, isError } = usePostUserSettings();
 
-    const navigate = useNavigate();
+    useEffect(() => {
+        // userSettings.voiceType이 비어있지 않은 경우에만 postUserSettings 호출
+        if(userSettings.voiceType !== '') {
+          postUserSettings(userSettings);
+          onNext(4);
+        }
+      }, [userSettings.voiceType]);
+
     
     const voiceType = [
         { value: 'MALE_VOICE', name: 'Male Voice' },
@@ -34,9 +41,6 @@ export const VoiceStep: React.FC<StepProps> = ({ onNext }) => {
     const handleSubmit = () =>{
         if(checkedValue != ''){
             setUserSettings({ ...userSettings, voiceType: checkedValue });
-            console.log('userSettings'+userSettings);
-            postUserSettings(userSettings);
-            navigate('/main');
         }else{
             console.log('checkedValue is null!');
         }
@@ -53,7 +57,7 @@ export const VoiceStep: React.FC<StepProps> = ({ onNext }) => {
                 </VoiceCard>
                 ))}
             </CardContainer>
-            {checkedValue != '' && <NextBtn onClick = {handleSubmit}>Done! </NextBtn>}
+            {checkedValue != '' && <NextBtn onClick = {handleSubmit}>Next Step {' >'} </NextBtn>}
         </Container>
     );
 };

@@ -32,7 +32,7 @@ export const userSettingsState = atom({
     disabilityType: -1,
     fontSize: 16,
     voiceType: '',
-    componentType: ComponentType.THREE,
+    componentType: ComponentType.DEFAULT,
   },
 });
 

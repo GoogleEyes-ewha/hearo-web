@@ -18,6 +18,7 @@ import Pagination from './Pagination';
 
 // style
 import styled from 'styled-components'; 
+import { useGetUserSettings } from '../../hooks/settings';
 
 function useQueryParams() {
     return new URLSearchParams(useLocation().search);
@@ -28,14 +29,16 @@ function isCategorySearchResponse(response: CategorySearchResponse | KeywordSear
 }
 
 const ProductContainer: React.FC = () => {
-
+    const {data: userInfo} = useGetUserSettings();
     const queryParam = useQueryParams();
     const keyword = queryParam.get('keyword'); // 키워드로 검색한 경우
     const { categoryId } = useParams();
 
-    const { componentType } = useRecoilValue(userSettingsState); 
-    const itemsPerPage = componentType == ComponentType.THREE ? 3  
-                        : (componentType == ComponentType.ONE ? 1 : 6);
+    console.log('componentType'+JSON.stringify(userInfo));
+    const componentTypeNum = userInfo?.result?.componentType;
+    
+    const itemsPerPage = componentTypeNum == ComponentType.THREE ? 3  
+                        : (componentTypeNum == ComponentType.ONE ? 1 : 6);
 
     const [currentPage, setCurrentPage] = useState(1);
 

@@ -21,3 +21,8 @@ export const postUserSettings = async (settings : IUserSettingType) => {
     const response = await axiosInstance.post('/user/custom', settings);
     return response.data;
 };
+
+export const postUserComponentSettings = async (settings : IUserSettingType) => {
+    const response = await axiosInstance.patch('/user/custom/edit', settings);
+    return response.data;
+};
