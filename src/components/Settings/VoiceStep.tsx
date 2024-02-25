@@ -34,6 +34,7 @@ export const VoiceStep: React.FC<StepProps> = ({ onNext }) => {
     const handleSubmit = () =>{
         if(checkedValue != ''){
             setUserSettings({ ...userSettings, voiceType: checkedValue });
+            console.log('userSettings'+userSettings);
             postUserSettings(userSettings);
             navigate('/main');
         }else{
