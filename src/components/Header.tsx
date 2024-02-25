@@ -64,16 +64,37 @@ const LoginButton: React.FC = () => {
         }
     }, [loginState]);
 
+    // 로그인 
     const handleLoginClick = () => {
-        if(loginState === 'login') {
-            Cookies.remove('accessToken');
-            Cookies.remove('refreshToken');
-            setLoginState('logout');
-            navigate('/main');
-        }
         navigate('/login');
-
     };
+    
+    // 로그아웃 
+    const handleLogout = () => {
+        Cookies.remove('accessToken');
+        Cookies.remove('refreshToken');
+        setLoginState('logout');
+        navigate('/main');
+    }
+
+    // 단축키 
+    const handleKeyDown = (event: KeyboardEvent) => {
+        if (event.ctrlKey && event.key === 'x') {
+            handleLogout();
+        }
+
+        if (event.ctrlKey && event.shiftKey) {
+            navigate('/login');
+        }
+    }
+
+    // event handler 등록 
+    useEffect(() => {
+        document.addEventListener('keydown',handleKeyDown);
+        return () => {
+            document.removeEventListener('keydown',handleKeyDown);
+        };
+    },[]);
 
 // login 되어있으면 환영메시지, 아니면 로그인 버튼 
     return (
@@ -82,7 +103,7 @@ const LoginButton: React.FC = () => {
             (
                 <>
                     <WelcomeMessage>{username} ! welcome :D</WelcomeMessage>
-                    <StyledLogoutButton onClick={handleLoginClick}>Logout</StyledLogoutButton>
+                    <StyledLogoutButton onClick={handleLogout}>Logout</StyledLogoutButton>
                 </>
             ):(
                 <StyledButton onClick={handleLoginClick}>
