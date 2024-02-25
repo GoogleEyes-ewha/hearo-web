@@ -6,6 +6,7 @@ import { isLogin, userNameState } from '../recoil/recoil'
 import styled from 'styled-components';
 import loginButton from '../assets/images/loginButton.png';
 import Logo from '../assets/images/logo.png';
+import Setting from '../assets/images/gear.png';
 import Cookies from 'js-cookie';
 import { useGetUserInfo } from '../hooks/settings';
 import { QueryClient } from 'react-query';
@@ -27,6 +28,9 @@ const Header: React.FC = () => {
 
     const handleClick = () => {
         navigate('/main');
+    };
+    const handleSettingClick = () => {
+        navigate('/settings');
     };
 
     const handleLogout = () => {
@@ -63,8 +67,11 @@ const Header: React.FC = () => {
             {loginState === 'login' && username ? 
             (
                 <>
-                    <WelcomeMessage>{username} ! welcome :D</WelcomeMessage>
+                <WelcomeMessage>{username} ! welcome :D</WelcomeMessage>
+                <LoginBox>
+                    <GearImgBox onClick={handleSettingClick}/>
                     <StyledLogoutButton onClick={handleLogout}>Logout</StyledLogoutButton>
+                </LoginBox>
                 </>
             ):(
                 <StyledButton onClick={handleLoginClick}>
@@ -136,17 +143,15 @@ const WelcomeMessage = styled.div`
     font-family: SUIT;
     font-weight: bold;
     font-size: 25px;
-
-    margin-top: 5px;
 `
 
 const Container = styled.div`
     position: fixed;
     top: 0;
     display: flex; 
-    justify-content: space-between;
     padding: 22px 39.784px 22.583px 51px;
     align-items: center;
+    justify-content: space-between;
     background-color: #73788a;
     width: 98%;
     height: 35.4px;
@@ -158,6 +163,20 @@ const LogoImgBox = styled.div`
     height: 33px;
     background: url(${Logo});
     cursor: pointer;
+`
+
+const GearImgBox = styled.div`
+    width: 32px;
+    height: 32px;
+    background: url(${Setting});
+    background-size: cover;
+    cursor: pointer;
+`
+
+const LoginBox = styled.div`
+    display: flex;
+    align-items: center;
+    gap: 20px;
 `
 
 export default Header;

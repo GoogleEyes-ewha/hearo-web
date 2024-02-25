@@ -1,12 +1,8 @@
-import { useParams } from "react-router-dom";
 import { styled } from "styled-components";
-import { getItemReviews } from "../api/product";
-import { useQuery } from "react-query";
 import Lottie from "lottie-react";
 import React, { useEffect, useRef, useState } from "react";
 import { useGetItemAllReviews, useGetItemReviews } from "../hooks/product";
 import SpeakerImg from "../assets/images/Speaker.png";
-import axios from "axios";
 import { getTTSpeech } from "../api/tts";
 import { useGetUserInfo, useGetUserSettings } from "../hooks/settings";
 
