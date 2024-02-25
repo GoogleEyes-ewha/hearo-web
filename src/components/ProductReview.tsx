@@ -50,6 +50,12 @@ const ProductReview = React.memo(
       }
     };
 
+    const handleKeyDown = (event: React.KeyboardEvent<HTMLImageElement>, text: string) => {
+      if(event.key === 'Enter') {
+        handleSpeak(text);
+      }
+    };
+
     const handlePreviousClick = () => {
       if (reviewList) {
         setCurrentIndex((prevIndex) => Math.max(prevIndex - 2, 0)); // 이전 2개 리뷰로 이동
@@ -100,16 +106,20 @@ const ProductReview = React.memo(
               <ReviewTitleBox>
                 <ReviewTitle>Positive review</ReviewTitle>
                 <SpeakerImgBox
+                  tabIndex={0}
                   src={SpeakerImg}
                   onClick={() => handleSpeak(reviews?.result.positiveSummary)}
+                  onKeyDown={(event)=>handleKeyDown(event,reviews?.result.positiveSummary)}
                 />
               </ReviewTitleBox>
               <ReviewBox>{reviews?.result.positiveSummary}</ReviewBox>
               <ReviewTitleBox>
                 <ReviewTitle>Negative review</ReviewTitle>
                 <SpeakerImgBox
+                  tabIndex={0}
                   src={SpeakerImg}
                   onClick={() => handleSpeak(reviews?.result.negativeSummary)}
+                  onKeyDown={(event)=>handleKeyDown(event,reviews?.result.negativeSummary)}
                 />
               </ReviewTitleBox>
               <ReviewBox>{reviews?.result.negativeSummary}</ReviewBox>
