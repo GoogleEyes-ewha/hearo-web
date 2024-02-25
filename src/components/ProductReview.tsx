@@ -3,32 +3,17 @@ import { styled } from "styled-components";
 import { getItemReviews } from "../api/product";
 import { useQuery } from "react-query";
 import Lottie from "lottie-react";
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import { useGetItemAllReviews, useGetItemReviews } from "../hooks/product";
 import SpeakerImg from "../assets/images/Speaker.png";
+import axios from "axios";
+import { getTTSpeech } from "../api/tts";
+import { useGetUserInfo, useGetUserSettings } from "../hooks/settings";
 
 interface ProductReviewProps {
   itemId: string | undefined;
   data: any; // 이 부분에서 data 속성을 추가
 }
-
-const getSpeech = (text: string, voices: SpeechSynthesisVoice[]) => {
-  const lang = "ko-KR";
-  const utterThis = new SpeechSynthesisUtterance(text);
-  utterThis.lang = lang;
-
-  // 미리 불러온 음성 데이터에서 한국어 음성 찾기
-  const korVoice = voices.find(
-    (voice) => voice.lang === lang || voice.lang === lang.replace("-", "_")
-  );
-
-  if (korVoice) {
-    utterThis.voice = korVoice;
-    window.speechSynthesis.speak(utterThis);
-  } else {
-    console.log("한국어 음성을 찾을 수 없습니다.");
-  }
-};
 
 const ProductReview = React.memo(
   ({ itemId, data: reviews }: ProductReviewProps) => {
@@ -39,29 +24,30 @@ const ProductReview = React.memo(
       error: error2,
     } = useGetItemAllReviews(itemId);
 
+    const {data: userInfo} = useGetUserSettings();
+
+    console.log(userInfo);
+
     const [currentIndex, setCurrentIndex] = useState(0);
-    const [voices, setVoices] = useState<SpeechSynthesisVoice[]>([]);
-
+    const audioRef = useRef(new Audio());
+  
+    // 컴포넌트 언마운트 시 오디오 정지
     useEffect(() => {
-      const loadVoices = () => {
-        setVoices(window.speechSynthesis.getVoices());
-      };
-
-      loadVoices();
-
-      // 음성 목록이 변경되면 다시 불러오기
-      if (window.speechSynthesis.onvoiceschanged !== undefined) {
-        window.speechSynthesis.onvoiceschanged = loadVoices;
-      }
-
-      // 컴포넌트 언마운트 시 이벤트 리스너 제거
       return () => {
-        window.speechSynthesis.onvoiceschanged = null;
+        audioRef.current.pause();
       };
     }, []);
 
-    const handleSpeak = (text: string) => {
-      getSpeech(text, voices);
+
+    const handleSpeak = async (text: string) => {
+      try {
+        const audioUrl = await getTTSpeech(text, userInfo.result.voiceType); // getSpeech 함수 호출
+        const audio = new Audio(audioUrl);
+        audio.play();
+      } catch (error) {
+        console.error('Speech play error:', error);
+        alert("오류가 발생하였습니다.");
+      }
     };
 
     const handlePreviousClick = () => {
@@ -287,6 +273,7 @@ const SpeakerImgBox = styled.img`
   width: 42px;
   height: 39px;
   margin-left: 20px;
+  cursor: pointer;
 `;
 
 const DetailReviewText = styled.div`

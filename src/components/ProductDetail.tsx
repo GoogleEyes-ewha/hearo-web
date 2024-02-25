@@ -4,12 +4,12 @@ import styled from 'styled-components';
 import { useGetItem } from '../hooks/product';
 import { useParams } from 'react-router-dom';
 import Lottie from 'lottie-react';
+import { useGetUserSettings } from '../hooks/settings';
 
 export default function ProductDetail(){
     const { itemId } = useParams();
     console.log('itemId' + itemId);
     const { data: data, isLoading, error } = useGetItem(itemId);
-
     console.log(data);
     if (error) return <div>An error occurred</div>;
 
