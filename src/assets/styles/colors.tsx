@@ -1,4 +1,3 @@
-
 export const getColors = (colorBlindMode: string) => {
     switch(colorBlindMode) {
       case 'type1':
