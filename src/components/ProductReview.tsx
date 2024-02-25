@@ -30,6 +30,7 @@ const ProductReview = React.memo(
 
     const [currentIndex, setCurrentIndex] = useState(0);
     const audioRef = useRef(new Audio());
+    const [playingText, setPlayingText] = useState<string | null>(null);
   
     // 컴포넌트 언마운트 시 오디오 정지
     useEffect(() => {
@@ -40,10 +41,22 @@ const ProductReview = React.memo(
 
 
     const handleSpeak = async (text: string) => {
+      if (text === playingText && !audioRef.current.paused) {
+        audioRef.current.pause();
+        audioRef.current.src = ""; // 오디오 소스 초기화
+        setPlayingText(null); // 재생 중인 텍스트 상태 초기화
+        return; // 함수 종료
+      }else if (!audioRef.current.paused) {
+        audioRef.current.pause();
+        audioRef.current.src = ""; // 오디오 재생 위치를 시작점으로 초기화
+        await new Promise(resolve => setTimeout(resolve, 100));
+      }
       try {
         const audioUrl = await getTTSpeech(text, userInfo.result.voiceType); // getSpeech 함수 호출
-        const audio = new Audio(audioUrl);
-        audio.play();
+        audioRef.current.src = audioUrl; // 오디오 소스 업데이트
+        audioRef.current.load(); // 새 소스로 오디오 재로드
+        audioRef.current.play();
+        setPlayingText(text);
       } catch (error) {
         console.error('Speech play error:', error);
         alert("오류가 발생하였습니다.");
