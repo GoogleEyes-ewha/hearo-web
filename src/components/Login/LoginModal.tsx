@@ -12,15 +12,12 @@ export default function LoginModal() {
   const [isOpen, setIsOpen] = useRecoilState(isModalOpen);
   const [activeForm, setActiveForm] = useRecoilState(isLogin);
 
-  const { mutate: loginMutate, isError } = useGoogleLogin();
-
   const closeModal = () => {
     setIsOpen(false);
   };
 
-  const handleGoogleLogin = (event: React.FormEvent) => {
-    event.preventDefault();
-    loginMutate();
+  const handleGoogleLogin = () => {
+    window.location.href = 'https://hearo-server.shop:8080/auth/google';
   };
 
   if (!isOpen) return null;
