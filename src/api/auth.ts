@@ -15,6 +15,11 @@ export const login = async ({
   return response.data;
 };
 
+export const googleLogin = async () => {
+  const response = await axios.get(`${process.env.REACT_APP_API_BASE_URL}/auth/google`);
+  return response.data;
+}
+
 export const reissueTokens = async () => {
   const accessToken = Cookies.get("accessToken");
   const refreshToken = Cookies.get("refreshToken");

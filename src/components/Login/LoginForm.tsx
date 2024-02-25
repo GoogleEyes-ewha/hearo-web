@@ -21,12 +21,6 @@ export default function LoginForm() {
     event.preventDefault();
     loginMutate(
       { loginId: id, password },
-      {
-        onSuccess: () => {
-          alert("Logged in successfully");
-          navigate("/main"); // 로그인 성공 후 리디렉트
-        },
-      }
     );
   };
 
@@ -50,7 +44,7 @@ export default function LoginForm() {
           onChange={(e) => setPassword(e.target.value)}
         />
       </InputBox>
-      <SubmitBtn type="submit">SIGN UP</SubmitBtn>
+      <SubmitBtn type="submit">LOG IN</SubmitBtn>
       <div style={{ display: "flex", gap: "10px" }}>
         <SubText>Don't have an account?</SubText>
         <SubText

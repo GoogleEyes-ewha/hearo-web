@@ -5,13 +5,22 @@ import styled from 'styled-components';
 import LoginForm from './LoginForm';
 import SignupForm from './SignupForm';
 import CancleImg from '../../assets/images/cancleX.png';
+import GoogleLogo from "../../assets/images/googleLogo.png";
+import { useGoogleLogin } from '../../hooks/auth';
 
 export default function LoginModal() {
   const [isOpen, setIsOpen] = useRecoilState(isModalOpen);
   const [activeForm, setActiveForm] = useRecoilState(isLogin);
 
+  const { mutate: loginMutate, isError } = useGoogleLogin();
+
   const closeModal = () => {
     setIsOpen(false);
+  };
+
+  const handleGoogleLogin = (event: React.FormEvent) => {
+    event.preventDefault();
+    loginMutate();
   };
 
   if (!isOpen) return null;
@@ -32,6 +41,10 @@ export default function LoginModal() {
                 <FormContainer>
                     {activeForm === 'login' ? <LoginForm /> : <SignupForm />}
                 </FormContainer>
+                <GoogleSignUpBox onClick={handleGoogleLogin}>
+                <LogoImgBox src={GoogleLogo}/>
+                <SignUpText>Sign up with Google</SignUpText>
+            </GoogleSignUpBox>
             </ToggleBox>
         </FormBox>
     </Container>
@@ -111,3 +124,38 @@ const CloseButton = styled.button`
     font-size: 24px;
     cursor: pointer;
 `;
+
+const GoogleSignUpBox = styled.div`
+  display: flex;
+  width: 60%;
+  position: absolute;
+  bottom: 100px;
+  left: 15%;
+  margin-top: 84px;
+  padding: 2% 5%;
+  align-items: center;
+  gap: 30px;
+  border-radius: 4.838px;
+  background: #FFF;
+  box-shadow: 0px 2.419px 2.419px 0px rgba(0, 0, 0, 0.17), 0px 0px 2.419px 0px rgba(0, 0, 0, 0.08);
+  cursor: pointer;
+`
+
+const LogoImgBox = styled.img`
+  width: 30px;
+  height: 30px;
+`
+
+const SignUpText = styled.div`
+  display: flex;
+  width: 380px;
+  color: rgba(0, 0, 0, 0.54);
+  justify-content: center;
+
+  text-align: center;
+  font-family: Roboto;
+  font-size: 20px;
+  font-style: normal;
+  font-weight: 500;
+  line-height: normal;
+`
