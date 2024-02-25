@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import styled from 'styled-components';
 import { ArrowBack, ArrowForward } from '@mui/icons-material';
 
@@ -18,6 +18,22 @@ const Pagination: React.FC<PaginationProps> = ({ totalPages, currentPage, setPag
     const goToNextPage = () => {
         setPage(Math.min(totalPages,currentPage+1));
     };
+
+    const handleKeyDown = (event: KeyboardEvent) => {
+        if(event.ctrlKey && event.key === 'ArrowLeft') {
+            goToPreviousPage();
+        }
+        else if(event.ctrlKey && event.key === 'ArrowRight') {
+            goToNextPage();
+        }
+    };
+
+    useEffect(() => {
+        document.addEventListener('keydown', handleKeyDown);
+        return () => {
+            document.removeEventListener('keydown', handleKeyDown);
+        }
+    })
     
     return (
         <Nav>
@@ -76,9 +92,6 @@ const ArrowLeft = styled.button`
     margin-right: 10px;
     cursor: pointer;
 
-    &:hover {
-        border: 2px solid #000;
-    }
 `
 const ArrowRight = styled.button`
     border-radius: 15px;
@@ -90,9 +103,6 @@ const ArrowRight = styled.button`
     margin-left: 5px;
     cursor: pointer;
 
-    &:hover {
-        border: 2px solid #000;
-    }
 `
 
 export default Pagination;
