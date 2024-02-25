@@ -82,7 +82,6 @@ const MainTitleBox = styled.div`
 
 const CardContainer = styled.div`
     display: flex;
-    width: 100%;
     margin: 56px 66px;
     justify-content: center;
     gap: 27px;

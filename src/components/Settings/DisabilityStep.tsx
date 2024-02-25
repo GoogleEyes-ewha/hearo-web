@@ -64,6 +64,7 @@ const Container = styled.div`
 
 const MainTitleBox = styled.div`
     display: flex;
+    width: 100%;
     flex-direction: column;
     justify-content: center;
     margin-top: 153px;
@@ -79,10 +80,9 @@ const MainTitleBox = styled.div`
 
 const CardContainer = styled.div`
     display: flex;
-    width: 100%;
     margin: 56px 66px;
     justify-content: center;
-    gap: 27px;
+    gap: 20px;
 `
 
 const DisabilityCard = styled.div<{isSelected: boolean}>`
