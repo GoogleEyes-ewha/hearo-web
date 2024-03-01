@@ -33,9 +33,6 @@ Our frontend application leverages a robust set of technologies and libraries to
 - **Lottie-React 2.4.0**: Enables the use of Lottie animations in React applications, enhancing the UI with high-quality animations.
 - **React Speech Recognition 3.10.0 & Web Speech Cognitive Services 7.1.3**: Integrates speech recognition capabilities into the app, offering users an interactive and accessible interface.
 
-
-## 📦 Scripts
-
 ## ☁️ How to run
 1. Clone project
   ```bash
@@ -48,9 +45,22 @@ Our frontend application leverages a robust set of technologies and libraries to
 ## 🖥️ Live Demo
 Experience Hearo right now 👉🏻 <a href="https://hearo-hmuri.vercel.app/login">Click here!</a>
 
+## 🚀 Keyboard Shortcuts
+
+To enhance your experience and navigation on our webpage, we've implemented the following keyboard shortcuts:
+
+- `Ctrl + X`: Logout
+- `Ctrl + Shift`: Login
+- `Ctrl + Enter`: Display the login/signup modal window
+- `Alt + 1,2,3,4,5,6,7,8`: Directly navigate to category pages
+- `Ctrl + Right/Left Arrow`: Move through product search result pages one page at a time
+- `Tab + Enter`: Access components
+
+These shortcuts are designed to make your navigation smoother and more efficient. Enjoy exploring Hearo with ease!
+
 ## 👩🏻‍💻 Back-End Contributors
 
-| Minju Choi                    | Cherry Yi                          | 
+| Minju Choi                    | Cherry Yi                            | 
 | --------------------------------- | --------------------------------- | 
 | ![](https://github.com/hmuri.png) | ![](https://github.com/official-Cherry.png) | 
 | <p align="center"><a href="https://github.com/hmuri">@hmuri</a></p> | <p align="center"><a href="https://github.com/official-Cherry">@official-Cherry</a></p> | 
