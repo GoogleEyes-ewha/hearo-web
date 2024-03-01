@@ -49,12 +49,14 @@ Experience Hearo right now 👉🏻 <a href="https://hearo-hmuri.vercel.app/logi
 
 To enhance your experience and navigation on our webpage, we've implemented the following keyboard shortcuts:
 
+- `Ctrl + Alt`: main
 - `Ctrl + X`: Logout
 - `Ctrl + Shift`: Login
 - `Ctrl + Enter`: Display the login/signup modal window
 - `Alt + 1,2,3,4,5,6,7,8`: Directly navigate to category pages
 - `Ctrl + Right/Left Arrow`: Move through product search result pages one page at a time
 - `Tab + Enter`: Access components
+- `Tab`: Navigate components
 
 These shortcuts are designed to make your navigation smoother and more efficient. Enjoy exploring Hearo with ease!
 
